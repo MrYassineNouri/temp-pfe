@@ -1,0 +1,47 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <div class="row justify-content-between">
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100 hide-hint">
+          <input
+            matInput
+            class="p-b-0"
+            placeholder="Search here..."
+            (keyup)="applyFilter($event)"
+          />
+          <mat-icon matSuffix>
+            <i-tabler name="search" class="icon-20"></i-tabler>
+          </mat-icon>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-sm-8 text-end d-flex align-items-center justify-content-end"
+      >
+      <button mat-flat-button (click)="openDialog('Add', {})" color="primary">
+        Ajouter groupe
+      </button> 
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div class="row">
+  <div class="col-sm-6 col-lg-4" *ngFor="let groupList of contacts">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="text-center p-24">
+        <img src="assets/images/profile/user.jpg" class="rounded-circle border p-5" width="100" />
+        <h4 mat-card-title class="card-title m-t-16 m-b-0">
+          {{ groupList.nom }}
+        </h4>
+        <span class="f-s-12">{{ groupList.id }}</span>
+        <div class="m-t-20">
+          <button mat-flat-button (click)="navigateToo()" class="m-r-8" color="primary">liste des employees</button>
+          <!-- <button mat-flat-button color="accent">voir groupe</button>--> 
+        </div>
+        
+      </mat-card-content>
+      <mat-divider></mat-divider>
+    </mat-card>
+  </div>
+</div>
+
