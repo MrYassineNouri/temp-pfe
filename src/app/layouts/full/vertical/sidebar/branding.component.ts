@@ -11,7 +11,7 @@ import { CoreService } from 'src/app/services/core.service';
       <a href="/">
         <img
           src="./assets/images/logos/logoo.png"
-           style="height: 200px; width:270px"
+           style="height: 200px; width:200px"
           class="align-middle m-2"
           alt="logo"
         />
