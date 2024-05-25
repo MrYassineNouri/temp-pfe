@@ -87,7 +87,9 @@ export class AppBannersComponent implements OnInit {
       console.log('Incorrect number of selected rows:', this.selectedRows.length);
     }
   }
-  
+  Souscrire(){
+    this.router.navigate(['/forms/souscription']);
+  }
  
 
   getOffres()

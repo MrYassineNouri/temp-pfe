@@ -167,9 +167,9 @@ export const navItems: NavItem[] = [
     route: '/forms/form-layouts',
   },
   {
-    displayName: 'Form Horizontal',
+    displayName: 'Souscription',
     iconName: 'box-align-bottom',
-    route: '/forms/form-horizontal',
+    route: '/forms/souscription',
   },
   {
     displayName: 'Form Vertical',

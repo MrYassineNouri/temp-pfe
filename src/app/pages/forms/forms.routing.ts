@@ -90,13 +90,13 @@ export const FormsRoutes: Routes = [
         },
       },
       {
-        path: 'form-horizontal',
+        path: 'souscription',
         component: AppFormHorizontalComponent,
         data: {
-          title: 'Form Horizontal',
+          title: 'Souscription',
           urls: [
             { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Form Horizontal' },
+            { title: 'Souscription' },
           ],
         },
       },
