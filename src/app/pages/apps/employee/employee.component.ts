@@ -7,6 +7,7 @@ import { AppAddEmployeeComponent } from './add/add.component';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { __param } from 'tslib';
+import Swal from 'sweetalert2'
 
 export interface Employee {
   id: number;
@@ -36,19 +37,19 @@ const employees = [
 @Component({
   templateUrl: './employee.component.html',
 })
-export class AppEmployeeComponent implements AfterViewInit ,OnInit{
+export class AppEmployeeComponent implements OnInit{
 
   @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
   searchText: any;
   displayedColumns: string[] = [
     'id',
+    'login',
     'nom',
     'prenom',
     'email',
     'password',
     'tel',
     'role',
-    'login',
     'action'
   ];
   dataSource = new MatTableDataSource<Employee>([]);
@@ -77,10 +78,6 @@ export class AppEmployeeComponent implements AfterViewInit ,OnInit{
           console.error(error);
         }
       );
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(filterValue: string): void {
@@ -132,11 +129,23 @@ export class AppEmployeeComponent implements AfterViewInit ,OnInit{
               .subscribe(
                   (resultData: any) => {
                       console.log(resultData);
-                      alert(resultData);
+                      Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: resultData,
+                        showConfirmButton: true,
+                        timer: 2000
+                    });
                   },
                   (error) => {
                       console.error('Erreur lors de la modification de la fiche:', error);
-                      alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+                      Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Une erreur est survenue. Veuillez réessayer plus tard.",
+                        showConfirmButton: true,
+                        timer: 2000
+                    });
                   }
               );
             } else {
@@ -179,17 +188,32 @@ export class AppEmployeeComponent implements AfterViewInit ,OnInit{
             .subscribe(
                 (resultData: any) => {
                     console.log(resultData);
-                    alert('Fiche ajoutée avec succès.');
+                    Swal.fire({
+                      position: "center",
+                      icon: "success",
+                      title: "Compte ajoutée avec succès.",
+                      showConfirmButton: true,
+                  });
                     this.aff();
                 },
                 (error) => {
                     console.error('Erreur lors de l\'ajout de la fiche:', error);
-                    alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+                    Swal.fire({
+                      position: "center",
+                      icon: "error",
+                      title: "Erreur lors de l\'ajout du compte",
+                      showConfirmButton: true,
+                  });
                 }
             );
     } else {
         console.error('Erreur lors de l\'attribution de la valeur à idrole: le rôle n\'est pas valide.');
-        // Gérez le cas où idrole n'a pas de valeur
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Erreur lors de l\'attribution de la valeur à idrole: le rôle n\'est pas valide.",
+          showConfirmButton: true,
+      });
     }
     //this.dialog.open(AppAddEmployeeComponent);
     //this.table.renderRows();
@@ -199,63 +223,89 @@ export class AppEmployeeComponent implements AfterViewInit ,OnInit{
 
   // tslint:disable-next-line - Disables all
   updateRowData(row_obj: Employee): void {
-    this.dataSource.data = this.dataSource.data.filter((value: any) => {
-      if (value.id === row_obj.id) {
-        console.log(value.id);
-        value.nom= row_obj.nom;
-        value.prenom= row_obj.prenom;
-        value.email=row_obj.email;
-        value.password= row_obj.password;
-        value.tel= row_obj.tel;
-        value.role=row_obj.role;
-        value.login= row_obj.login;
-      }
-      })
-      let idrole: number | undefined;
-      const nomrole = row_obj.role;
-      if (nomrole === "admin") {
-          idrole = 1;
-      } else if (nomrole === "superviseur") {
-          idrole = 2;
-      } else if (nomrole === "commercial") {
-          idrole = 3;
-      }
-  
-      if (idrole !== undefined) {
-          const roleObj = {
-              id: idrole,
-              nom: nomrole
-          };
-          // Créez un nouvel objet pour stocker les données modifiées
-          const rowDataToSend: any = {
-              id: row_obj.id,
-              nom: row_obj.nom,
-              prenom: row_obj.prenom,
-              email: row_obj.email,
-              password: row_obj.password,
-              tel: row_obj.tel,
-              role: roleObj, // Utilisez l'objet de rôle modifié
-              login: row_obj.login
-          };
-          console.log(rowDataToSend)
-  
-          this.http.post('http://localhost:5555/api/v1/users/modif', rowDataToSend, { responseType: 'text' })
-              .subscribe(
-                  (resultData: any) => {
-                      console.log(resultData);
-                      alert('Fiche modifiée avec succès.');
-                      this.aff();
-                  },
-                  (error) => {
-                      console.error('Erreur lors de la modification de la fiche:', error);
-                      alert('Une erreur est survenue. Veuillez réessayer plus tard.');
-                  }
-              );
-      } else {
-          console.error('Erreur lors de l\'attribution de la valeur à idrole: le rôle n\'est pas valide.');
-          // Gérez le cas où idrole n'a pas de valeur
-      };
-  }
+    let idrole: number | undefined;
+    const nomrole = row_obj.role;
+    if (nomrole === "admin") {
+        idrole = 1;
+    } else if (nomrole === "superviseur") {
+        idrole = 2;
+    } else if (nomrole === "commercial") {
+        idrole = 3;
+    }
+
+    if (idrole !== undefined) {
+        const roleObj = {
+            id: idrole,
+            nom: nomrole
+        };
+        // Créez un nouvel objet pour stocker les données modifiées
+        const rowDataToSend: any = {
+            //id: row_obj.id,
+            nom: row_obj.nom,
+            prenom: row_obj.prenom,
+            email: row_obj.email,
+            password: row_obj.password,
+            tel: row_obj.tel,
+            role: roleObj, // Utilisez l'objet de rôle modifié
+            login: row_obj.login
+        };
+        console.log(rowDataToSend);
+
+        Swal.fire({
+            title: "Voulez-vous enregistrer les modifications ?",
+            showDenyButton: true,
+            showCancelButton: false,
+            icon:"info",
+            confirmButtonText: "Enregistrer",
+            denyButtonText: `Annuler`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.http.post('http://localhost:5555/api/v1/users/modif', rowDataToSend, { responseType: 'text' })
+                    .subscribe(
+                        (resultData: any) => {
+                            console.log(resultData);
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Compte modifiée avec succès.",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                            this.aff();
+                        },
+                        (error) => {
+                            console.error('Erreur lors de la modification de la fiche:', error);
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Une erreur est survenue. Veuillez réessayer plus tard.",
+                                showConfirmButton: false,
+                            });
+                        }
+                    );
+            } else if (result.isDenied) {
+                Swal.fire({
+                  position: "center",
+                  icon: "warning",
+                  title: "Les modifications ne sont pas enregistrées",
+                  showConfirmButton: false,
+                  timer: 1000
+              });
+            }
+        });
+    } else {
+        console.error('Erreur lors de l\'attribution de la valeur à idrole: le rôle n\'est pas valide.');
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Le rôle n'est pas valide.",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+    //this.dialog.open(AppAddEmployeeComponent);
+    //this.table.renderRows();
+}
 
   // tslint:disable-next-line - Disables all
    deleteRowData(row_obj: Employee): boolean | any {

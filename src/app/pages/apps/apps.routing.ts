@@ -120,10 +120,10 @@ export const AppsRoutes: Routes = [
         path: 'tickets',
         component: AppTicketlistComponent,
         data: {
-          title: 'Tickets',
+          title: 'Groupes',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Tickets' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Liste des employées' },
           ],
         },
       },
@@ -131,10 +131,10 @@ export const AppsRoutes: Routes = [
         path: 'groups',
         component: AppContactComponent,
         data: {
-          title: 'Groups',
+          title: 'Groupes',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Groups' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Groupes' },
           ],
         },
       },
@@ -144,7 +144,7 @@ export const AppsRoutes: Routes = [
         data: {
           title: 'produits',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
+            { title: '', url: '/dashboards/dashboard1' },
             { title: 'Produits' },
           ],
         },
@@ -155,7 +155,7 @@ export const AppsRoutes: Routes = [
         data: {
           title: 'Produit Details',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
+            { title: '', url: '/dashboards/dashboard1' },
             { title: 'Produit Details' },
           ],
         },
@@ -186,21 +186,21 @@ export const AppsRoutes: Routes = [
         path: 'employee',
         component: AppEmployeeComponent,
         data: {
-          title: 'Employee',
+          title: 'Comptes',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Employee' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Comptes' },
           ],
         },
       },
       {
-        path: 'invoice',
+        path: 'fiches',
         component: AppInvoiceListComponent,
         data: {
-          title: 'Invoice',
+          title: 'Fiches',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Invoice' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Fiches' },
           ],
         },
       },

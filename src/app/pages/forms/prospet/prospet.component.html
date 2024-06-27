@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-sm-12">
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="Nom Conjoint" required/>
+                        <input matInput formControlName="nomc"  id="nomc" placeholder="Nom Conjoint" />
                       </mat-form-field>
                     </div>
                   </div>
@@ -129,12 +129,12 @@
                     </div>
                     <div class="col-sm-12">
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput [matDatepicker]="datepicker" placeholder="MM/JJ/AAAA" />
+                        <input matInput [matDatepicker]="datepickerr" formControlName="DNC"  id="DNC" placeholder="MM/JJ/AAAA" />
                         <mat-datepicker-toggle
                           matIconSuffix
-                          [for]="datepicker"
+                          [for]="datepickerr"
                         ></mat-datepicker-toggle>
-                        <mat-datepicker #datepicker></mat-datepicker>
+                        <mat-datepicker #datepickerr></mat-datepicker>
                       </mat-form-field>
                     </div>
                   </div>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="col-sm-12">
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="Prénom Conjoint" required />
+                        <input matInput formControlName="prenomc"  id="prenomc" placeholder="Prénom Conjoint" />
                       </mat-form-field>
                     </div>
                   </div>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="col-sm-12">
                       <mat-form-field appearance="outline" class="w-100">
-                        <mat-select formControlName="firstCtrl" required>
+                        <mat-select formControlName="regimec"  id="regimec" >
                           <mat-option value="Assuré social">Assuré social</mat-option>
                           <mat-option value="Alsace moselle">Alsace moselle</mat-option>
                           <mat-option value="Msa-exploitation-agricole">Msa-exploitation-agricole</mat-option>
@@ -198,75 +198,80 @@
                   >Nombres d'enfants :
                 </mat-label>
               </div>
-              <mat-radio-group aria-label="Select an option" class="m-t-8">
+              <mat-radio-group aria-label="Select an option" class="m-t-8" (change)="onSelectionChange($event)">
+                <mat-radio-button value="0" color="primary">0</mat-radio-button>
                 <mat-radio-button value="1" color="primary">1</mat-radio-button>
                 <mat-radio-button value="2" color="primary">2</mat-radio-button>
-                <mat-radio-button value="1" color="primary">3</mat-radio-button>
-                <mat-radio-button value="2" color="primary">+3</mat-radio-button>
-              </mat-radio-group> <br>
+              </mat-radio-group>
+               <br>
+               @if(selectedValue == 1) {
+                <div class="row">
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="row">
+                      <div class="col-sm-12 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
+                          >Date de naissance de l'enfant 1
+                        </mat-label>
+                      </div>
+                      <div class="col-sm-12">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <input matInput [matDatepicker]="datepicker1" formControlName="DNE1"  id="DNE1" placeholder="MM/JJ/AAAA" />
+                          <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="datepicker1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #datepicker1></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+              </div>
+                }
+      
+               @if(selectedValue ==2) {
+                <div class="row">
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="row">
+                      <div class="col-sm-12 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
+                          >Date de naissance de l'enfant 1
+                        </mat-label>
+                      </div>
+                      <div class="col-sm-12">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <input matInput [matDatepicker]="datepicker1" formControlName="DNE1"  id="DNE1" placeholder="MM/JJ/AAAA" />
+                          <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="datepicker1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #datepicker1></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-lg-6 col-sm-6">
                   <div class="row">
                     <div class="col-sm-12 d-flex align-items-center">
                       <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-                        >Date de naissance de l'enfant 1
+                        >Date de naissance de l'enfant 2
                       </mat-label>
                     </div>
                     <div class="col-sm-12">
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput [matDatepicker]="datepicker1" placeholder="MM/JJ/AAAA" />
+                        <input matInput [matDatepicker]="datepicker2" formControlName="DNE2"  id="DNE2" placeholder="MM/JJ/AAAA" />
                         <mat-datepicker-toggle
                           matIconSuffix
-                          [for]="datepicker1"
+                          [for]="datepicker2"
                         ></mat-datepicker-toggle>
-                        <mat-datepicker #datepicker1></mat-datepicker>
+                        <mat-datepicker #datepicker2></mat-datepicker>
                       </mat-form-field>
                     </div>
                   </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-6 col-sm-6">
-                <div class="row">
-                  <div class="col-sm-12 d-flex align-items-center">
-                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-                      >Date de naissance de l'enfant 2
-                    </mat-label>
-                  </div>
-                  <div class="col-sm-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                      <input matInput [matDatepicker]="datepicker2" placeholder="MM/JJ/AAAA" />
-                      <mat-datepicker-toggle
-                        matIconSuffix
-                        [for]="datepicker2"
-                      ></mat-datepicker-toggle>
-                      <mat-datepicker #datepicker2></mat-datepicker>
-                    </mat-form-field>
-                  </div>
-                </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6 col-sm-6">
-              <div class="row">
-                <div class="col-sm-12 d-flex align-items-center">
-                  <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-                    >Date de naissance de l'enfant 3
-                  </mat-label>
-                </div>
-                <div class="col-sm-12">
-                  <mat-form-field appearance="outline" class="w-100">
-                    <input matInput [matDatepicker]="datepicker3" placeholder="MM/JJ/AAAA" />
-                    <mat-datepicker-toggle
-                      matIconSuffix
-                      [for]="datepicker3"
-                    ></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker3></mat-datepicker>
-                  </mat-form-field>
-                </div>
-              </div>
-          </div>
-        </div>
+                }
               <mat-action-row>
                 <button mat-flat-button color="warn" (click)="prevStep()">
                   Retour
@@ -278,7 +283,7 @@
   
 
           <div class="text-right">
-            <button mat-flat-button color="primary" matStepperNext [disabled]="!form.valid">Suivant </button>
+            <button mat-flat-button color="primary" matStepperNext >Suivant </button>
           </div>
         </form>
       </mat-step>
@@ -372,116 +377,142 @@
               <div class="row">
                 <div class="col-sm-12 d-flex align-items-center">
                   <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-                    >Soins courants</mat-label
+                    >Horaires médicaux</mat-label
                   >
                 </div>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" color="primary"
-                    >Minimum</mat-radio-button
+                <mat-radio-group aria-label="Select an option" id="CONVENTION" class="form-control"formControlName="CONVENTION" required>
+                 - 100% du tarif de convention?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
                   >
-                  <mat-radio-button value="2" color="primary"
-                    >Moyen</mat-radio-button
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
                   >
-                  <mat-radio-button value="3" color="primary"
-                    >Fort</mat-radio-button
+                </mat-radio-group>
+                <mat-radio-group aria-label="Select an option" id="HONORAIRES" class="form-control"formControlName="HONORAIRES" required>
+                 - Dépassement d'honoraires?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
                   >
-                  <mat-radio-button value="4" color="primary"
-                    >Maximum</mat-radio-button
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
+                  >
+                </mat-radio-group>
+                <mat-radio-group aria-label="Select an option" id="MNATURELLE" class="form-control"formControlName="MNATURELLE" required>
+                 - Médecine naturelle?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
+                  >
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
                   >
                 </mat-radio-group>
               </div> <br>
-              <div class="row">
-                <div class="col-sm-12 d-flex align-items-center">
-                  <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-                    >Optique</mat-label
-                  >
-                </div>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" color="primary"
-                    >Minimum</mat-radio-button
-                  >
-                  <mat-radio-button value="2" color="primary"
-                    >Moyen</mat-radio-button
-                  >
-                  <mat-radio-button value="3" color="primary"
-                    >Fort</mat-radio-button
-                  >
-                  <mat-radio-button value="4" color="primary"
-                    >Maximum</mat-radio-button
-                  >
-                </mat-radio-group>
-              </div> <br>
-              
-              <div class="row">
-                <div class="col-sm-12 d-flex align-items-center">
-                  <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-                    >Auditive</mat-label
-                  >
-                </div>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" color="primary"
-                    >Minimum</mat-radio-button
-                  >
-                  <mat-radio-button value="2" color="primary"
-                    >Moyen</mat-radio-button
-                  >
-                  <mat-radio-button value="3" color="primary"
-                    >Fort</mat-radio-button
-                  >
-                  <mat-radio-button value="4" color="primary"
-                    >Maximum</mat-radio-button
-                  >
-                </mat-radio-group>
-              </div>
-              
-            </div> <br>
-            <div class="col-lg-6 col-sm-6">
               <div class="row">
                 <div class="col-sm-12 d-flex align-items-center">
                   <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
                     >Hospitalisation</mat-label
                   >
                 </div>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" color="primary"
-                    >Minimum</mat-radio-button
+                <mat-radio-group aria-label="Select an option" id="HOSPITALISATION" class="form-control"formControlName="HOSPITALISATION" required>
+                 - Hospitalisation de prévu ou à venir dans le 12 mois?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
                   >
-                  <mat-radio-button value="2" color="primary"
-                    >Moyen</mat-radio-button
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
                   >
-                  <mat-radio-button value="3" color="primary"
-                    >Fort</mat-radio-button
+                </mat-radio-group>
+                <mat-radio-group aria-label="Select an option" id="TARIF" class="form-control"formControlName="TARIF" required>
+                 - 100% du tarif de convention?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
                   >
-                  <mat-radio-button value="4" color="primary"
-                    >Maximum</mat-radio-button
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
+                  >
+                </mat-radio-group>
+                <mat-radio-group aria-label="Select an option" id="DEPASSEMENTH" class="form-control"formControlName="DEPASSEMENTH" required>
+                 - Dépassement d'honoraires?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
+                  >
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
+                  >
+                </mat-radio-group>
+                <mat-radio-group aria-label="Select an option" id="CHAMBRE" class="form-control"formControlName="CHAMBRE" required>
+                 - Chambre particulière?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
+                  >
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
                   >
                 </mat-radio-group>
               </div> <br>
+              
+              
+            </div> <br>
+            <div class="col-lg-6 col-sm-6">
+              
               <div class="row">
                 <div class="col-sm-12 d-flex align-items-center">
                   <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-                    >Dentaire
-                  </mat-label>
-                </div>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" color="primary"
-                    >Minimum</mat-radio-button
+                    >Dentaire</mat-label
                   >
-                  <mat-radio-button value="2" color="primary"
+                </div>
+                <mat-radio-group aria-label="Select an option" id="BESOIND" class="form-control"formControlName="BESOIND" required>
+                 - Vos besoins :
+                  <mat-radio-button value="1" color="warn"
+                    >Faible</mat-radio-button
+                  >
+                  <mat-radio-button value="2" color="accent"
                     >Moyen</mat-radio-button
                   >
                   <mat-radio-button value="3" color="primary"
                     >Fort</mat-radio-button
                   >
-                  <mat-radio-button value="4" color="primary"
-                    >Maximum</mat-radio-button
+                </mat-radio-group>
+                <mat-radio-group aria-label="Select an option" id="GARENTIED" class="form-control"formControlName="GARENTIED" required>
+                 - Votre garentie :
+                  <mat-radio-button value="1" color="accent"
+                    >Soins,Prothèse ?</mat-radio-button
+                  >
+                  <mat-radio-button value="2" color="warn"
+                    >Implantes ?</mat-radio-button
+                  >
+                </mat-radio-group>
+              </div><br>
+              <div class="row">
+                <div class="col-sm-12 d-flex align-items-center">
+                  <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
+                    >Optique
+                  </mat-label>
+                </div>
+                <mat-radio-group aria-label="Select an option" id="LUNETTES" class="form-control"formControlName="LUNETTES" required>
+                 - Portez-vous des lunettes?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
+                  >
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
+                  >
+                </mat-radio-group>
+                <mat-radio-group aria-label="Select an option" id="FOPTIQUE" class="form-control"formControlName="FOPTIQUE" required>
+                 - La garantie choisie avec mon conseiller, y a-t-il un <br> forfait optique?
+                  <mat-radio-button value="2" color="accent"
+                    >oui</mat-radio-button
+                  >
+                  <mat-radio-button value="3" color="warn"
+                    >non</mat-radio-button
                   >
                 </mat-radio-group>
               </div> <br>
              
             </div>
           </div>
-        </div>
+        </div><br>
         <div class="d-flex align-items-center justify-content-between">
           <button mat-flat-button color="warn" matStepperPrevious>
             Retour

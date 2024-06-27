@@ -71,10 +71,10 @@ export const UiComponentsRoutes: Routes = [
         path: 'lists',
         component: AppListsComponent,
         data: {
-          title: 'Lists',
+          title: 'Produits',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Lists' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Produits' },
           ],
         },
       },

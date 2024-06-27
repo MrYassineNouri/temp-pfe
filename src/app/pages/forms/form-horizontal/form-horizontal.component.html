@@ -174,101 +174,104 @@
       <button mat-flat-button color="primary" (click)="nextStep()">Suivant</button>
     </mat-action-row>
   </mat-expansion-panel>
-
   <mat-expansion-panel
-    class="cardWithShadow"
-    [expanded]="step === 2"
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
-    hideToggle
-  >
+  class="cardWithShadow"
+  [expanded]="step === 2"
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+  hideToggle
+>
   <mat-expansion-panel-header>
     <mat-panel-title class="f-w-600 f-s-16">Cordonnées d'ajoutés </mat-panel-title>
   </mat-expansion-panel-header>
-
+  
   <div class="col-sm-12 d-flex align-items-center">
     <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16 "
       >Nombres d'enfants :
     </mat-label>
   </div>
-  <mat-radio-group aria-label="Select an option" class="m-t-8">
+  <mat-radio-group aria-label="Select an option" class="m-t-8" (change)="onSelectionChange($event)">
+    <mat-radio-button value="0" color="primary">0</mat-radio-button>
     <mat-radio-button value="1" color="primary">1</mat-radio-button>
     <mat-radio-button value="2" color="primary">2</mat-radio-button>
-    <mat-radio-button value="1" color="primary">3</mat-radio-button>
-    <mat-radio-button value="2" color="primary">+3</mat-radio-button>
-  </mat-radio-group> <br>
+  </mat-radio-group>
+   <br>
+   @if(selectedValue == 1) {
+    <div class="row">
+      <div class="col-lg-6 col-sm-6">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
+              >Date de naissance de l'enfant 1
+            </mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="datepicker1" formControlName="DNE1"  id="DNE1" placeholder="MM/JJ/AAAA" />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="datepicker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #datepicker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+    </div>
+  </div>
+    }
+
+   @if(selectedValue ==2) {
+    <div class="row">
+      <div class="col-lg-6 col-sm-6">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
+              >Date de naissance de l'enfant 1
+            </mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="datepicker1" formControlName="DNE1"  id="DNE1" placeholder="MM/JJ/AAAA" />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="datepicker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #datepicker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-lg-6 col-sm-6">
       <div class="row">
         <div class="col-sm-12 d-flex align-items-center">
           <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-            >Date de naissance de l'enfant 1
+            >Date de naissance de l'enfant 2
           </mat-label>
         </div>
         <div class="col-sm-12">
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datepicker1" placeholder="MM/JJ/AAAA" />
+            <input matInput [matDatepicker]="datepicker2" formControlName="DNE2"  id="DNE2" placeholder="MM/JJ/AAAA" />
             <mat-datepicker-toggle
               matIconSuffix
-              [for]="datepicker1"
+              [for]="datepicker2"
             ></mat-datepicker-toggle>
-            <mat-datepicker #datepicker1></mat-datepicker>
+            <mat-datepicker #datepicker2></mat-datepicker>
           </mat-form-field>
         </div>
       </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-lg-6 col-sm-6">
-    <div class="row">
-      <div class="col-sm-12 d-flex align-items-center">
-        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-          >Date de naissance de l'enfant 2
-        </mat-label>
-      </div>
-      <div class="col-sm-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <input matInput [matDatepicker]="datepicker2" placeholder="MM/JJ/AAAA" />
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="datepicker2"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #datepicker2></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </div>
-</div>
-</div>
-<div class="row">
-<div class="col-lg-6 col-sm-6">
-  <div class="row">
-    <div class="col-sm-12 d-flex align-items-center">
-      <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"
-        >Date de naissance de l'enfant 3
-      </mat-label>
-    </div>
-    <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="datepicker3" placeholder="MM/JJ/AAAA" />
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="datepicker3"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datepicker3></mat-datepicker>
-      </mat-form-field>
-    </div>
-  </div>
-</div>
-</div>
-
-    <mat-action-row>
-      <button mat-flat-button color="warn" (click)="prevStep()">
-        Previous
-      </button>
-      <button mat-flat-button color="primary" (click)="nextStep()">End</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+    }
+  <mat-action-row>
+    <button mat-flat-button color="warn" (click)="prevStep()">
+      Retour
+    </button>
+    <button mat-flat-button color="primary" (click)="nextStep()">Finir</button>
+  </mat-action-row>
+</mat-expansion-panel>
+</mat-accordion> 
 <h4 class="mat-headline-6 m-y-24">Identité Bancaire</h4>
 <mat-card class="cardWithShadow theme-card">
       <mat-card-content>
@@ -580,7 +583,7 @@
   </mat-card-content>
 </mat-card>
 <div class="m-t-12 text-center">
-  <button mat-flat-button color="primary">Enregistrer</button>
-  <button mat-flat-button color="warn" class="m-l-8">Annuler</button>
+  <button mat-flat-button (click)="enreg()" color="primary">Enregistrer</button>
+  <button mat-flat-button color="warn" (click)="back()" class="m-l-8">Annuler</button>
   <button mat-flat-button color="accent" class="m-l-8">Envoyer vers le site de la compagnie</button>
 </div>

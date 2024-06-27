@@ -3,13 +3,16 @@
     <div class="row justify-content-between">
       <div class="col-lg-4">
         <mat-form-field appearance="outline" class="w-100 hide-hint">
-          <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" />
+          <mat-label>Rechercher</mat-label>
+          <input matInput (keyup)="filtrer($event)" />
           <mat-icon matSuffix>
-            <i-tabler name="search" class="icon-20"></i-tabler>
+            <i-tabler name="Rechercher" class="icon-20"></i-tabler>
           </mat-icon>
         </mat-form-field>
-      </div>
+        
+      </div><button mat-button color="primary" class="m-l-8" style="margin-top: 10px;margin-right: 680px;" (click)="initialiser()"><mat-icon matSuffix>
+        <i-tabler name="reload" class="icon-20"></i-tabler>
+      </mat-icon></button>
     </div>
   </mat-card-content>
 </mat-card>
@@ -20,11 +23,12 @@
       <mat-card class="cardWithShadow overflow-hidden" style="height: 200px;">
         <mat-card-header class="course-header bg-{{ course.courseType }} d-flex justify-content-between">
           <mat-card-title class="m-b-0 f-s-16">{{ course.soc }}</mat-card-title>
-          <a
-              
-              class="m-r-10 cursor-pointer"
-              ><i-tabler name="lock-square-rounded" class="icon-18 "></i-tabler
-            ></a>
+          <a (click)="toggleIconAndAct(course)" class="m-r-10 cursor-pointer">
+            <i-tabler *ngIf="course.etat === 'A'; else unlockedIcon" name="lock" class="icon-18 "></i-tabler>
+            <ng-template #unlockedIcon>
+              <i-tabler name="lock-off" class="icon-18"></i-tabler>
+            </ng-template>
+          </a>
         </mat-card-header><mat-divider></mat-divider>
         <mat-card-content class="text-center p-y-24 ">
           <h3 class="m-b-4 mat-subtitle-2 f-s-16 f-w-600 ">{{ course.nom }}</h3>
@@ -32,7 +36,7 @@
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-actions class="text-center p-y-8">
-          <a mat-button [routerLink]="['/apps/produits/produitsdetail/', course.Id]" class="w-100">Détails</a>
+          <a mat-button (click)="navigateToo(course)" class="w-100">Détails</a>
         </mat-card-actions>
       </mat-card>
     </div>

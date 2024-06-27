@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -37,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     MatDatepickerModule,
     ReactiveFormsModule,

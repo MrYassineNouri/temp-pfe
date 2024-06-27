@@ -101,10 +101,10 @@ export const TablesRoutes: Routes = [
         path: 'multi-header-footer-table',
         component: AppMultiHeaderFooterTableComponent,
         data: {
-          title: 'Multi Header Footer Table',
+          title: 'Groupes',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Multi Header Footer Table' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Assigner superviseur' },
           ],
         },
       },
@@ -134,10 +134,10 @@ export const TablesRoutes: Routes = [
         path: 'selection-table',
         component: AppSelectionTableComponent,
         data: {
-          title: 'Selection Table',
+          title: 'Groupes',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Selection Table' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Ajouter commercial' },
           ],
         },
       },

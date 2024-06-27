@@ -26,6 +26,7 @@ export class AppBannersComponent implements OnInit {
   max = 500;
   min = 0;
   value = 0;
+  data: number;
   offres: any[] = [];
   allComplete: boolean = false;
   dataSource: MatTableDataSource<DataSource>;
@@ -33,7 +34,7 @@ export class AppBannersComponent implements OnInit {
     'select',
     'société',
     'prod',
-    'prix',
+    'cotisation',
   ];
  
 
@@ -43,12 +44,21 @@ export class AppBannersComponent implements OnInit {
   ngOnInit(): void {
     const bannersListData = this.invoiceService.getBannersList();
     this.dataSource = new MatTableDataSource(bannersListData);
-    this.getOffres();
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.data = navigation.extras.state['data'];
+    } else {
+      // Fallback to accessing the state from the history state
+      const historyState = window.history.state;
+      this.data = historyState?.data ?? null;
+    }
+    console.log(this.data)
+    this.getOffres(this.data);
   }
 
   selection = new SelectionModel<DataSource>(true, []);
   selectedRows: DataSource[] = [];
-
+  selectedCompany: string = 'All';
 
   isAllSelected(): any {
     const numSelected = this.selection.selected.length;
@@ -75,14 +85,22 @@ export class AppBannersComponent implements OnInit {
       this.selection.clear(); // Clear any extra selections
     }
   }
-  
-  
+  applyFiltre(filterValue: string): void {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  filterByCompany() {
+    if (this.selectedCompany === 'All') {
+      this.dataSource.filter = '';
+    } else {
+      this.dataSource.filter = this.selectedCompany.trim().toLowerCase();
+    }
+  }
   compareRows(): void {
     console.log('Button clicked'); // Check if this message appears in the console
     console.log('Selected rows:', this.selectedRows); // Check if selectedRows contains the expected data
   
     if (this.selectedRows.length === 3) {
-      this.router.navigate(['/tables/sticky-header-footer-table'], { state: { selectedRows: this.selectedRows } });
+      this.router.navigate(['/theme-pages/pricing'], { state: { selectedRows: this.selectedRows } });
     } else {
       console.log('Incorrect number of selected rows:', this.selectedRows.length);
     }
@@ -92,9 +110,10 @@ export class AppBannersComponent implements OnInit {
   }
  
 
-  getOffres()
+  getOffres(id:any)
   {
-    this.http.get("http://localhost:5555/api/v1/prods/tar")
+    console.log(id)
+    this.http.get(`http://localhost:5555/api/v1/prods/tar?id=${id}`)
       .subscribe(
         (resultData: any) => {
           resultData.forEach((item: any, index: number) => {

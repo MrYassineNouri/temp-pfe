@@ -6,4 +6,10 @@ export class produit {
   soc = '';
   nom= '';
   code = '';
+  etat='';
+}
+export class detailP{
+  [x: string]: any;
+  nomP='';
+  descrip='';
 }

@@ -66,6 +66,93 @@
       </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
+          <mat-label>NomConj</mat-label>
+          <input
+            type="text"
+            matInput
+            id="nomc"
+            name="nomc"
+            [(ngModel)]="local_data.nomc"
+            placeholder="NomConj"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>PrénomConj</mat-label>
+          <input
+            type="text"
+            matInput
+            id="prenomc"
+            name="prenomc"
+            [(ngModel)]="local_data.prenomc"
+            placeholder="PrénomConj"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Date de Naissance Conj</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerC"
+            id="DNC"
+            name="DNC"
+            [(ngModel)]="local_data.DNC"
+            placeholder="DNC"
+          />
+          <mat-datepicker-toggle matSuffix [for]="pickerC"></mat-datepicker-toggle>
+          <mat-datepicker #pickerC></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Regime Conj</mat-label>
+          <mat-select placeholder="RegimeConj" [(ngModel)]="local_data.regimec" name="regimec">
+            <mat-option value="Assuré social">Assuré social</mat-option>
+            <mat-option value="Alsace moselle">Alsace moselle</mat-option>
+            <mat-option value="Msa-exploitation-agricole">Msa-exploitation-agricole</mat-option>
+            <mat-option value="Msa-salarié-agricole">Msa-salarié-agricole</mat-option>
+            <mat-option value="Profession libérale">Profession libérale</mat-option>
+            <mat-option value="Tns">Tns</mat-option>
+            <mat-option value="Tns-immat-en-cours">Tns-immat-en-cours</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>DateNaissance enfant 1 :</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker1"
+            id="DNE1"
+            name="DNE1"
+            [(ngModel)]="local_data.DNE1"
+            placeholder="DNE1"
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>DateNaissance enfant 2 :</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker2"
+            id="DNE2"
+            name="DNE2"
+            [(ngModel)]="local_data.DNE2"
+            placeholder="DNE2"
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>Adresse</mat-label>
           <input
             type="text"
@@ -125,15 +212,15 @@
           <mat-label>Date d'effet</mat-label>
           <input
             matInput
-            [matDatepicker]="picker"
+            [matDatepicker]="pickerE"
             required
             id="DE"
             name="DE"
             [(ngModel)]="local_data.DE"
             placeholder="DE"
           />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="pickerE"></mat-datepicker-toggle>
+          <mat-datepicker #pickerE></mat-datepicker>
         </mat-form-field>
       </div>
     </div>

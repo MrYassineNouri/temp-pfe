@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, TrackByFunction } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AppDialogContentComponent } from '../../ui-components/dialog/dialog.component';
 
 // card 1
 interface rules {
@@ -23,107 +25,51 @@ interface pricecards {
   styleUrls: ['./pricing.component.scss'],
 })
 export class AppPricingComponent {
-  show = false;
+  dataSource: any[] = [];
+  selectedRows: any;
+show: any;
+trackByPlan: TrackByFunction<any>;
 
-  // yearlyPrice: any = (a: any, b: number) => ;
 
-  yearlyPrice(a: any) {
-    return a * 12;
+ /* displayedColumns = ['item', 'cost'];
+
+ openHeaderDialog() {
+    const dialogRef = this.dialog.open(AppDialogContentComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
+  transactions: Transaction[] = [
+    { img: '/assets/images/products/s1.jpg', item: 'Beach ball', cost: 4 },
+    { img: '/assets/images/products/s2.jpg', item: 'Towel', cost: 5 },
+    { img: '/assets/images/products/s3.jpg', item: 'Frisbee', cost: 2 },
+    { img: '/assets/images/products/s4.jpg', item: 'Sunscreen', cost: 4 },
+    { img: '/assets/images/products/s5.jpg', item: 'Cooler', cost: 25 },
+    { img: '/assets/images/products/s6.jpg', item: 'Swim suit', cost: 15 },
+  ]; 
 
-  // card 1
-  pricecards: pricecards[] = [
-    {
-      id: 1,
-      plan: 'Silver',
-      imgSrc: '/assets/images/backgrounds/silver.png',
-      btnText: 'Choose Silver',
-      free: true,
-      rules: [
-        {
-          title: '3 Members',
-          limit: true,
-        },
-        {
-          title: 'Single Device',
-          limit: true,
-        },
-        {
-          title: '50GB Storage',
-          limit: false,
-        },
-        {
-          title: 'Monthly Backups',
-          limit: false,
-        },
-        {
-          title: 'Permissions & workflows',
-          limit: false,
-        },
-      ],
-    },
-    {
-      id: 2,
-      plan: 'Bronze',
-      imgSrc: '/assets/images/backgrounds/bronze.png',
-      btnText: 'Choose Bronze',
-      free: false,
-      popular: true,
-      planPrice: 10.99,
-      rules: [
-        {
-          title: '5 Members',
-          limit: true,
-        },
-        {
-          title: 'Multiple Device',
-          limit: true,
-        },
-        {
-          title: '80GB Storage',
-          limit: false,
-        },
-        {
-          title: 'Monthly Backups',
-          limit: false,
-        },
-        {
-          title: 'Permissions & workflows',
-          limit: false,
-        },
-      ],
-    },
-    {
-      id: 3,
-      plan: 'Gold',
-      imgSrc: '/assets/images/backgrounds/gold.png',
-      btnText: 'Choose Gold ',
-      free: false,
-      planPrice: 22.99,
-      rules: [
-        {
-          title: 'Unlimited Members',
-          limit: true,
-        },
-        {
-          title: 'Multiple  Device',
-          limit: true,
-        },
-        {
-          title: '150GB  Storage',
-          limit: true,
-        },
-        {
-          title: 'Monthly Backups',
-          limit: true,
-        },
-        {
-          title: 'Permissions & workflows',
-          limit: true,
-        },
-      ],
-    },
-  ];
+  /** Gets the total cost of all transactions.
+  getTotalCost(): any {
+    return this.transactions
+      .map((t) => t.cost)
+      .reduce((acc, value) => acc + value, 0);
+  } */
+  
+  
+  constructor(private dialog: MatDialog) {}
+  openDialog() {
+    console.log("fgvhbjnk")
+      const dialogRef = this.dialog.open(AppDialogContentComponent);
+      console.log("rdfghnjk")
+      dialogRef.afterClosed().subscribe((result: any) => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+  
 
-  constructor() {}
+  ngOnInit() {
+    this.selectedRows = history.state.selectedRows || [];
+    this.dataSource = this.selectedRows;
+  }
 }

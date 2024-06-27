@@ -6,117 +6,23 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 export interface TicketElement {
   id: number;
-  title: string;
-  subtext: string;
-  assignee: string;
-  imgSrc: string;
-  status: string;
-  date: string;
+  nom: string;
+  prenom: string;
+  role: string;
 }
 
 const tickets: TicketElement[] = [
   {
     id: 1,
-    title: 'Sed ut perspiciatis unde omnis iste',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    imgSrc: '/assets/images/profile/user-1.jpg',
-    assignee: 'Alice',
-    status: 'inprogress',
-    date: '2023-05-01',
-  },
-  {
-    id: 2,
-    title: 'Xtreme theme dropdown issue',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Jonathan',
-    imgSrc: '/assets/images/profile/user-2.jpg',
-    status: 'open',
-    date: '2023-05-03',
-  },
-  {
-    id: 3,
-    title: 'Header issue in material admin',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Smith',
-    imgSrc: '/assets/images/profile/user-3.jpg',
-    status: 'closed',
-    date: '2023-05-02',
-  },
-  {
-    id: 4,
-    title: 'Sidebar issue in Nice admin',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Vincent',
-    imgSrc: '/assets/images/profile/user-4.jpg',
-    status: 'inprogress',
-    date: '2023-05-06',
-  },
-  {
-    id: 5,
-    title: 'Elegant Theme Side Menu show OnClick',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Chris',
-    imgSrc: '/assets/images/profile/user-5.jpg',
-    status: 'open',
-    date: '2023-05-04',
-  },
-  {
-    id: 6,
-    title: 'Header issue in admin pro admin',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'James',
-    imgSrc: '/assets/images/profile/user-6.jpg',
-    status: 'closed',
-    date: '2023-05-03',
-  },
-  {
-    id: 7,
-    title: 'Elegant Theme Side Menu OnClick',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Jonathan',
-    imgSrc: '/assets/images/profile/user-7.jpg',
-    status: 'inprogress',
-    date: '2023-05-05',
-  },
-  {
-    id: 8,
-    title: 'adminpress Theme Side Menu not opening',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Smith',
-    imgSrc: '/assets/images/profile/user-8.jpg',
-    status: 'open',
-    date: '2023-05-04',
-  },
-  {
-    id: 9,
-    title: 'Charts not proper in xtreme admin',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Markus',
-    imgSrc: '/assets/images/profile/user-9.jpg',
-    status: 'closed',
-    date: '2023-05-02',
-  },
-  {
-    id: 10,
-    title: 'Psd not availabel with package',
-    subtext:
-      'ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos',
-    assignee: 'Jane',
-    imgSrc: '/assets/images/profile/user-10.jpg',
-    status: 'closed',
-    date: '2023-05-03',
+    nom: 'Sed ',
+    prenom: 'hbj,',
+    role: 'Commercial',
   },
 ];
 
@@ -136,23 +42,55 @@ export class AppTicketlistComponent implements OnInit {
 
   displayedColumns: string[] = [
     'id',
-    'title',
-    'assignee',
-    'status',
-    'date',
+    'nom',
+    'prenom',
+    'role',
     'action',
   ];
   dataSource = new MatTableDataSource(tickets);
+  idgrp: number;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.idgrp = navigation.extras.state['data'];
+    } else {
+      // Fallback to accessing the state from the history state
+      const historyState = window.history.state;
+      this.idgrp = historyState?.data ?? null;
+    }
+    console.log(this.idgrp)
+    this.aff(this.idgrp);
     this.totalCount = this.dataSource.data.length;
     this.Open = this.btnCategoryClick('Open');
     this.Closed = this.btnCategoryClick('Closed');
     this.Inprogress = this.btnCategoryClick('InProgress');
     this.dataSource = new MatTableDataSource(tickets);
   }
+
+  aff(id: number) {
+    this.http.get<TicketElement[]>(`http://localhost:5555/api/v1/groupes/employees?id=${id}`)
+      .subscribe(
+        (resultData: TicketElement[]) => {
+          resultData.forEach((item: any, index: number) => {
+            console.log(item["role"])
+            console.log(item["role"].nom)
+            item["role"] = item["role"].nom;
+          });
+          console.log(resultData);
+          this.dataSource = new MatTableDataSource<TicketElement>(resultData);
+          this.dataSource.paginator = this.paginator;
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+  }
+  
+
+
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -172,34 +110,29 @@ export class AppTicketlistComponent implements OnInit {
     const dialogRef = this.dialog.open(AppTicketDialogContentComponent, {
       data: obj,
     });
-
     dialogRef.afterClosed().subscribe((result) => {
-      if (result.event === 'Add') {
-        this.addRowData(result.data);
-      } else if (result.event === 'Update') {
-        this.updateRowData(result.data);
-      } else if (result.event === 'Delete') {
-        this.deleteRowData(result.data);
+      if (result.event === 'Delete') {
+        console.log("tfuihioj")
+        this.deleteRowData(result.data.id);
       }
-    });
+    })
   }
   // tslint:disable-next-line - Disables all
-  addRowData(row_obj: TicketElement): void {
-    const d = new Date();
-    this.dataSource.data.unshift({
-      id: d.getTime(),
-      title: row_obj.title,
-      subtext: row_obj.subtext,
-      assignee: row_obj.assignee,
-      imgSrc: '/assets/images/profile/user-1.jpg',
-      status: row_obj.status,
-      date: row_obj.date,
-    });
-    this.table.renderRows();
+  addComm() {
+    console.log('yftugyihoj');
+    console.log(this.idgrp);
+    this.router.navigate(['/tables/selection-table'], { state: { data: this.idgrp } });
   }
 
+  addSupp() {
+    console.log('yftugyihoj');
+    console.log(this.idgrp);
+    this.router.navigate(['/tables/multi-header-footer-table'], { state: { data: this.idgrp } });
+  }
+
+
   // tslint:disable-next-line - Disables all
-  updateRowData(row_obj: TicketElement): boolean | any {
+  /*updateRowData(row_obj: TicketElement): boolean | any {
     this.dataSource.data = this.dataSource.data.filter((value, key) => {
       if (value.id === row_obj.id) {
         value.title = row_obj.title;
@@ -210,16 +143,45 @@ export class AppTicketlistComponent implements OnInit {
       }
       return true;
     });
-  }
+  }*/
 
   // tslint:disable-next-line - Disables all
-  deleteRowData(row_obj: TicketElement): boolean | any {
-    this.dataSource.data = this.dataSource.data.filter((value, key) => {
-      return value.id !== row_obj.id;
+  deleteRowData(id:any): boolean | any {
+    console.log(id)
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.post(`http://localhost:5555/api/v1/groupes/del`, id, { responseType: 'text' })
+              .subscribe(
+                  (resultData: any) => {
+                      console.log(resultData);
+                      Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                      });
+                      this.ngOnInit();
+                  },
+              );
+    }else if(result.isDenied) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Les modifications ne sont pas enregistrées",
+        showConfirmButton: false,
+        timer: 1000
     });
   }
+});
+  }
 }
-
 @Component({
   // tslint:disable-next-line - Disables all
   selector: 'app-dialog-content',

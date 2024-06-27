@@ -3,71 +3,21 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MaterialModule } from '../../../material.module';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 export interface PeriodicElement {
   id: number;
-  imagePath: string;
-  uname: string;
-  position: string;
-  productName: string;
-  budget: number;
-  priority: string;
+  nom: string;
+  prenom: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
     id: 1,
-    imagePath: 'assets/images/profile/user-1.jpg',
-    uname: 'Sunil Joshi',
-    position: 'Web Designer',
-    productName: 'Elite Admin',
-    budget: 3.9,
-    priority: 'low',
-  },
-  {
-    id: 2,
-    imagePath: 'assets/images/profile/user-2.jpg',
-    uname: 'Andrew McDownland',
-    position: 'Project Manager',
-    productName: 'Real Homes Theme',
-    budget: 24.5,
-    priority: 'medium',
-  },
-  {
-    id: 3,
-    imagePath: 'assets/images/profile/user-3.jpg',
-    uname: 'Christopher Jamil',
-    position: 'Project Manager',
-    productName: 'MedicalPro Theme',
-    budget: 12.8,
-    priority: 'high',
-  },
-  {
-    id: 4,
-    imagePath: 'assets/images/profile/user-4.jpg',
-    uname: 'Nirav Joshi',
-    position: 'Frontend Engineer',
-    productName: 'Hosting Press HTML',
-    budget: 2.4,
-    priority: 'critical',
-  },
-  {
-    id: 1,
-    imagePath: 'assets/images/profile/user-1.jpg',
-    uname: 'Sunil Joshi',
-    position: 'Web Designer',
-    productName: 'Elite Admin',
-    budget: 3.9,
-    priority: 'low',
-  },
-  {
-    id: 2,
-    imagePath: 'assets/images/profile/user-2.jpg',
-    uname: 'Andrew McDownland',
-    position: 'Project Manager',
-    productName: 'Real Homes Theme',
-    budget: 24.5,
-    priority: 'medium',
+    nom: 'as',
+    prenom: 'Sunil Joshi',
   },
 ];
 
@@ -80,13 +30,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class AppSelectionTableComponent implements OnInit {
   displayedColumns: string[] = [
     'select',
-    'assigned',
-    'name',
-    'priority',
-    'budget',
+    'id',
+    'nom',
+    'prenom',
   ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
+  data: number;
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected(): any {
@@ -108,11 +58,64 @@ export class AppSelectionTableComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.position + 1
+      row.id + 1
     }`;
   }
 
-  constructor() {}
+  constructor(private router: Router, private http: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.data = navigation.extras.state['data'];
+    } else {
+      // Fallback to accessing the state from the history state
+      const historyState = window.history.state;
+      this.data = historyState?.data ?? null;
+    }
+    console.log(this.data)
+    this.aff(this.data);
+  }
+  aff(id: number) {
+    this.http.get<PeriodicElement[]>(`http://localhost:5555/api/v1/groupes/listComm?id=${id}`)
+      .subscribe(
+        (resultData: PeriodicElement[]) => {
+          this.dataSource = new MatTableDataSource<PeriodicElement>(resultData);
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+  }
+
+  logSelected(): void {
+    const selectedElements = this.selection.selected;
+    console.log('Selected elements:', selectedElements);
+    this.addComm(selectedElements)
+    // Here you can also perform other actions with the selected elements
+  }
+
+  addComm(sel: any): void {
+    console.log("add");
+    console.log(this.data);
+    const id = this.data; // Assurez-vous que la variable id est correctement assignée
+    this.http.post(`http://localhost:5555/api/v1/groupes/comm?id=${id}`, sel, { responseType: 'text' })
+      .subscribe(
+        (resultData: any) => {
+          console.log(resultData);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Ajout avec succès",
+            showConfirmButton: true,
+          });
+          this.router.navigate(['/apps/tickets'], { state: { data: id } });
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout du commerciale', error);
+          alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+        }
+      );
+  };
+  
 }

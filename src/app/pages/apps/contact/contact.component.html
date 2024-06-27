@@ -6,7 +6,7 @@
           <input
             matInput
             class="p-b-0"
-            placeholder="Search here..."
+            placeholder="Rechercher..."
             (keyup)="applyFilter($event)"
           />
           <mat-icon matSuffix>
@@ -14,12 +14,10 @@
           </mat-icon>
         </mat-form-field>
       </div>
-      <div
-        class="col-sm-8 text-end d-flex align-items-center justify-content-end"
-      >
-      <button mat-flat-button (click)="openDialog('Add', {})" color="primary">
-        Ajouter groupe
-      </button> 
+      <div class="col-sm-8 text-end d-flex align-items-center justify-content-end">
+        <button mat-flat-button (click)="openDialog('Ajouter', {})" color="primary">
+          Ajouter groupe
+        </button>
       </div>
     </div>
   </mat-card-content>
@@ -27,21 +25,21 @@
 
 <div class="row">
   <div class="col-sm-6 col-lg-4" *ngFor="let groupList of contacts">
-    <mat-card class="cardWithShadow">
+    <mat-card class="cardWithShadow position-relative">
+      <button mat-icon-button class="edit-button" position='absolute' (click)="openDialog('Modifier', groupList)">
+        <mat-icon>edit</mat-icon>
+      </button>
       <mat-card-content class="text-center p-24">
-        <img src="assets/images/profile/user.jpg" class="rounded-circle border p-5" width="100" />
+        <img src="assets/images/profile/user.jpg" class="rounded-circle border p-5" width="80" />
         <h4 mat-card-title class="card-title m-t-16 m-b-0">
           {{ groupList.nom }}
         </h4>
         <span class="f-s-12">{{ groupList.id }}</span>
         <div class="m-t-20">
-          <button mat-flat-button (click)="navigateToo()" class="m-r-8" color="primary">liste des employees</button>
-          <!-- <button mat-flat-button color="accent">voir groupe</button>--> 
+          <button mat-flat-button (click)="navigateToo(groupList.id)" class="m-r-8" color="primary">liste des employés</button>
         </div>
-        
       </mat-card-content>
       <mat-divider></mat-divider>
     </mat-card>
   </div>
 </div>
-

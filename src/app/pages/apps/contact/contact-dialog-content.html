@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="m-b-24"> Nouveau groupe</h2>
+<h2 mat-dialog-title class="m-b-24"> {{action}} groupe</h2>
 <mat-dialog-content class="mat-typography" style="max-width: 600px">
   <form #userForm="ngForm" style="width: 400px;">
     <mat-form-field appearance="outline" class="w-100">
@@ -16,13 +16,13 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions class="p-24">
-  <button mat-stroked-button color="warn" mat-dialog-close>Annuler</button>
-  <button
+<!-- <button mat-stroked-button color="warn" mat-dialog-close>Annuler</button>--> 
+  <button class="col-lg-12"
     mat-flat-button
     [mat-dialog-close]="true"
     [disabled]="!userForm.form.valid" color="primary"
     (click)="doAction();"
   >
-    Ajouter
+  {{action}}
   </button>
 </mat-dialog-actions>

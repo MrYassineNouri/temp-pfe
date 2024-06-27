@@ -4,6 +4,28 @@ import { produit } from '../produit';
 import { produitService } from '../produit.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
+export class detailP{
+  nomP:string;
+  descrip:string;
+}
+const details: any =[
+  {
+    nomP: 'zeazezaeaz',
+    descrip: 'dzezaeazezadghh'
+  },
+  {
+    nomP: 'zeazezaeaz',
+    descrip: 'dzezaeazezadghh'
+  },
+  {
+    nomP: 'zeazezaeaz',
+    descrip: 'dzezaeazezadghh'
+  },
+  {
+    nomP: 'zeazezaeaz',
+    descrip: 'dzezaeazezadghh'
+  },
+]
 @Component({
   selector: 'app-produit-detail',
   templateUrl: './produit-detail.component.html',
@@ -19,6 +41,8 @@ export class AppproduitDetailComponent {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+produitsDetail: any;
+detailP: detailP;
 
   constructor(private _formBuilder: FormBuilder,activatedRouter: ActivatedRoute, produitService: produitService) {
     this.id = activatedRouter?.snapshot?.paramMap?.get('id');

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CoreService } from 'src/app/services/core.service';
 import {  FormControl } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -26,18 +25,33 @@ export class AppProspetComponent {
   secondFormGroup:FormGroup;
   finalForm:FormGroup;
 
+
+  selectedValue: number;
+
+  onSelectionChange(event: any): void {
+    this.selectedValue = event.value;
+    console.log('Selected value:', this.selectedValue);
+  }
+
   constructor(private http: HttpClient, private router: Router) {
     this.form = new FormGroup({
       nom: new FormControl('', [Validators.required]),
       prenom: new FormControl('', [Validators.required]),
       DN: new FormControl('', [Validators.required]),
       regime: new FormControl('', [Validators.required]),
+      nomc: new FormControl('', []),
+      prenomc: new FormControl('', []),
+      DNC: new FormControl('', []),
+      regimec: new FormControl('', []),
+      DNE1: new FormControl('', []),
+      DNE2: new FormControl('', []),
     });
     this.secondFormGroup=new FormGroup({
       adresse: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
       codeP: new FormControl('', [Validators.required]),
       tel: new FormControl('', [Validators.required]),
+      
     });
     this.finalForm = new FormGroup({
       DE: new FormControl('', [Validators.required]), // Ajoutez ici les autres contrôles de formulaire
@@ -49,7 +63,9 @@ export class AppProspetComponent {
       const formData = this.form.getRawValue();
       console.log(formData.DN);
       formData.DN = this.formatDate(formData.DN);
-      console.log(formData);
+     /* console.log(formData.DNC);
+      formData.DNC = this.formatDate(formData.DNC);
+      console.log(formData);*/
       if (this.secondFormGroup.valid) {
         const secondFormData = this.secondFormGroup.getRawValue();
         console.log(secondFormData);
@@ -120,6 +136,6 @@ export class AppProspetComponent {
 
   panelOpenState = false;
   navigateTo(){
-    this.router.navigate(['/apps/invoice/']);
+    this.router.navigate(['/apps/fiches/']);
   }
 }

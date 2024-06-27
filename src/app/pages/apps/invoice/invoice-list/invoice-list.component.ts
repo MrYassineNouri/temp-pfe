@@ -3,25 +3,23 @@ import { Router } from '@angular/router';
 import { ServiceinvoiceService } from '../serviceinvoice.service';
 import { InvoiceList } from '../invoice';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { Invoice } from './invoice';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-invoice-list',
   templateUrl: './invoice-list.component.html'
 })
-export class AppInvoiceListComponent implements AfterViewInit, OnInit {
+export class AppInvoiceListComponent implements  OnInit {
   allComplete: boolean = false;
   invoiceList: MatTableDataSource<InvoiceList>;
-  displayedColumns: string[] = ['chk', 'id', 'nom', 'prenom','DN', 'regime', 'adresse', 'email', 'codeP', 'tel', 'DE',"action"];
+  displayedColumns: string[] = ['id', 'nom', 'prenom', 'adresse', 'email', 'codeP', 'tel','etat',"action"];
 
   dataSource = new MatTableDataSource<Invoice>([]);
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   constructor(private router: Router,public dialog: MatDialog, private invoiceService: ServiceinvoiceService, private http: HttpClient) {
   }
@@ -33,10 +31,6 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
     this.getFiches();
   }
 
-  ngAfterViewInit(): void {
-    this.invoiceList.paginator = this.paginator;
-    this.invoiceList.sort = this.sort;
-  }
 
   openDialog(action: string, obj: any): void {
     obj.action = action;
@@ -44,13 +38,14 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
       data: obj,
     });
     dialogRef.afterClosed().subscribe((result:any) => {
-       if (result.event === 'Update') {
+       if (result.event === 'Modifer') {
         this.updateRowData(result.data);
       }
     });
   }
 
   updateRowData(row_obj: Invoice): void {
+    console.log("fdghjk")
     this.dataSource.data = this.dataSource.data.filter((value: any) => {
       if (value.id === row_obj.id) {
         console.log(value.id);
@@ -58,6 +53,10 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
         value.prenom= row_obj.prenom;
         value.DN= row_obj.DN;
         value.regime= row_obj.regime;
+        value.nomc= row_obj.nomc;
+        value.prenomc= row_obj.prenomc;
+        value.DNC= row_obj.DNC;
+        value.regimec= row_obj.regimec;
         value.adresse=row_obj.adresse;
         value.email=row_obj.email;
         value.codeP=row_obj.codeP;
@@ -71,6 +70,10 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
         prenom: row_obj.prenom,
         DN: row_obj.DN,
         regime:row_obj.regime,
+        nomc: row_obj.nom,
+        prenomc: row_obj.prenom,
+        DNC: row_obj.DN,
+        regimec:row_obj.regime,
         adresse:row_obj.adresse,
         email:row_obj.email,
         codeP:row_obj.codeP,
@@ -85,12 +88,10 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
               .subscribe(
                   (resultData: any) => {
                       console.log(resultData);
-                      alert('Fiche modifiée avec succès.');
                       this.getFiches();
                   },
                   (error) => {
                       console.error('Erreur lors de la modification de la fiche:', error);
-                      alert('Une erreur est survenue. Veuillez réessayer plus tard.');
                   }
                 );
     }
@@ -98,12 +99,15 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
     // Implémentez votre logique pour afficher les détails de la facture en fonction de l'ID
   }
   
+  naviguer(id:number){
+
+  }
 
   navigate(id:number) {
     console.log(id)                                                                                                     
-    this.router.navigate(['/widgets/banners']);
+    this.router.navigate(['/widgets/banners'] ,{ state: { data: id } });
   }
-
+  
   /*updateAllComplete(): void {
     this.allComplete = this.invoiceList != null && this.invoiceList.data.every((t) => t.completed);
   }
@@ -117,16 +121,49 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
     this.invoiceList.data.forEach((t) => (t.completed = completed));
   }*/
 
-  filter(filterValue: string): void {
-    this.invoiceList.filter = filterValue.trim().toLowerCase();
+    filter(filterValue: string): void {
+      this.invoiceList.filter = filterValue.trim().toLowerCase();
+    }
+
+  deleteInvoice(id: number): void {
+    console.log(id);
+    Swal.fire({
+      title: "Voulez-vous supprimer cette fiche?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui!,Supprimer.",
+      cancelButtonText:"Annuler"
+    }).then((result) => {
+      if (result.isConfirmed) {
+      this.http.post("http://localhost:5555/api/v1/fiches/del",id).subscribe(
+        response => {
+          this.invoiceList.data = this.invoiceList.data.filter(invoice => invoice.id !== id);
+          console.log("tfasakht")
+          Swal.fire({
+            title: "Supprimer",
+            text: "Votre fiche est supprimée avec succès.",
+            icon: "success"
+          });
+          this.router.navigate(['/apps/fiches']);
+        },
+        error => {
+          console.error('Error deleting invoice:', error); // Handle errors here
+        }
+      );
+    }else if(result.isDenied) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Suppression annulée",
+        showConfirmButton: false,
+        timer: 1000
+    });
+  }
+});
   }
 
-  deleteInvoice(row: number): void {
-    if (confirm('Are you sure you want to delete this record ?')) {
-      this.invoiceService.deleteInvoice(row);
-      this.invoiceList.data = this.invoiceList.data.filter((invoice) => invoice.id !== row);
-    }
-  }
 
   getFiches() {
     this.http.get("http://localhost:5555/api/v1/fiches/aff")
@@ -134,8 +171,6 @@ export class AppInvoiceListComponent implements AfterViewInit, OnInit {
         (resultData: any) => {
           console.log(resultData);
           this.invoiceList = new MatTableDataSource<InvoiceList>(resultData);
-          this.invoiceList.paginator = this.paginator;
-          this.invoiceList.sort = this.sort;
         },
         (error: any) => {
           console.error(error);
@@ -179,6 +214,13 @@ export class AppInvoiceDialogContentComponent {
   }
 
   doAction(): void {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Modification avec succès",
+      showConfirmButton: false,
+      timer: 1500
+    });
     this.dialogRef.close({ event: this.action, data: this.local_data });
   }
   closeDialog(): void {
