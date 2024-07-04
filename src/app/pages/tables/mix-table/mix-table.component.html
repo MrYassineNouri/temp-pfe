@@ -1,31 +1,12 @@
 <mat-card class="cardWithShadow">
   <mat-card-content class="p-24">
-    <div class="row justify-content-between m-b-8">
-      <div class="col-lg-5 col-sm-6 d-flex align-items-center">
-        <div>
-          <mat-card-title
-            >Data table with sorting, pagination, and filtering</mat-card-title
-          >
-          <mat-card-subtitle class="mat-body-1"
-            >all functionality is in one table</mat-card-subtitle
-          >
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-4">
-        <mat-form-field appearance="outline" class="w-100 hide-hint">
-          <mat-label>Search Here</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Filter" />
-        </mat-form-field>
-      </div>
-    </div>
 
     <div class="table-responsive m-t-30">
-      <mat-table [dataSource]="dataSource" matSort>
+      <mat-table [dataSource]="dataSource">
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <mat-header-cell
             *matHeaderCellDef
-            mat-sort-header
             class="f-w-600 mat-subtitle-1 f-s-16 p-l-0"
           >
             ID
@@ -36,58 +17,71 @@
         </ng-container>
 
         <!-- Progress Column -->
-        <ng-container matColumnDef="progress">
+        <ng-container matColumnDef="dateSous">
           <mat-header-cell
             *matHeaderCellDef
-            mat-sort-header
             class="f-w-600 mat-subtitle-1 f-s-16"
           >
-            Progress
+          Date d'échéance 
           </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{ row.progress }}% </mat-cell>
+          <mat-cell *matCellDef="let row"> {{ row.dateSous }} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="name">
+        <ng-container matColumnDef="produit">
           <mat-header-cell
             *matHeaderCellDef
-            mat-sort-header
             class="f-w-600 mat-subtitle-1 f-s-16"
           >
-            Name
+            Produit 
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
             <div class="d-flex align-items-center gap-12 p-y-16">
-              <img
-                src="/assets/images/profile/user-1.jpg"
-                alt="profile"
-                class="rounded-circle"
-                width="40"
-              />
-              <span class="f-s-16 f-w-600">{{ row.name }}</span>
+              <span class="f-s-16 f-w-600">{{ row.pid }}</span>
             </div>
           </mat-cell>
         </ng-container>
 
         <!-- Color Column -->
-        <ng-container matColumnDef="color">
+        <ng-container matColumnDef="client">
           <mat-header-cell
             *matHeaderCellDef
-            mat-sort-header
             class="f-w-600 mat-subtitle-1 f-s-16"
           >
-            Color
+            Client
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.numeroClient }}
+             </mat-cell>
+          
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-16"
+          >
+            Action
           </mat-header-cell>
           <mat-cell *matCellDef="let row" [style.color]="row.color">
-            {{ row.color }}
+            <button mat-icon-button (click)="naviger(row.id)"  class="d-flex align-items-center justify-content-center">
+                <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openDialog('Modifer', row)" class="d-flex align-items-center justify-content-center">
+               <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button
+                    [color]="row.valide ? 'primary' : 'accent'"
+                    [disabled]="row.valide"
+                    (click)="valider(row)"
+            >
+              {{ row.valide ? 'Validé' : 'Valider Contrat' }}
+            </button>
           </mat-cell>
+          
         </ng-container>
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
       </mat-table>
-
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </mat-card-content>
 </mat-card>

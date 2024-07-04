@@ -14,4 +14,6 @@ export interface Invoice {
     tel: string;
     etat:string;
     DE: Date;
+    DNE1:Date;
+    DNE2:Date;
   }

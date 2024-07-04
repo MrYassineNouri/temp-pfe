@@ -17,9 +17,10 @@ import { AppInvoiceListComponent } from './invoice/invoice-list/invoice-list.com
 import { AppAddInvoiceComponent } from './invoice/add-invoice/add-invoice.component';
 import { AppInvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
 import { AppEditInvoiceComponent } from './invoice/edit-invoice/edit-invoice.component';
-//import { AppEditFicheComponent } from './edit-fiche/edit-fiche.component';
 import { AppBlogsComponent } from './blogs/blogs.component';
 import { AppBlogDetailsComponent } from './blogs/details/details.component';
+import { HasRoleGuard } from 'src/app/has-role.guard';
+import { AppDashboard1Component } from '../dashboards/dashboard1/dashboard1.component';
 
 export const AppsRoutes: Routes = [
   {
@@ -35,6 +36,12 @@ export const AppsRoutes: Routes = [
             { title: 'Chat' },
           ],
         },
+      },
+      {
+        path: 'dashboards/dashboard1',
+        component: AppDashboard1Component,
+        canActivate: [HasRoleGuard],
+        data: { role: ['admin'] },
       },
       {
         path: 'calendar',
@@ -119,8 +126,8 @@ export const AppsRoutes: Routes = [
       {
         path: 'tickets',
         component: AppTicketlistComponent,
-        data: {
-          title: 'Groupes',
+        canActivate: [HasRoleGuard],
+        data: { role: ['admin'], title: 'Groupes',
           urls: [
             { title: '', url: '/dashboards/dashboard1' },
             { title: 'Liste des employées' },
@@ -130,7 +137,9 @@ export const AppsRoutes: Routes = [
       {
         path: 'groups',
         component: AppContactComponent,
+        canActivate: [HasRoleGuard],
         data: {
+          role: ['admin'], // Only admin can access the groups route
           title: 'Groupes',
           urls: [
             { title: '', url: '/dashboards/dashboard1' },
@@ -141,8 +150,10 @@ export const AppsRoutes: Routes = [
       {
         path: 'produits',
         component: AppproduitsComponent,
+        canActivate: [HasRoleGuard],
         data: {
-          title: 'produits',
+          role: ['admin'], // Only admin can access the produits route
+          title: 'Produits',
           urls: [
             { title: '', url: '/dashboards/dashboard1' },
             { title: 'Produits' },
@@ -152,7 +163,9 @@ export const AppsRoutes: Routes = [
       {
         path: 'produits/produitsdetail/:id',
         component: AppproduitDetailComponent,
+        canActivate: [HasRoleGuard],
         data: {
+          role: ['admin'], // Only admin can access the produits detail route
           title: 'Produit Details',
           urls: [
             { title: '', url: '/dashboards/dashboard1' },
@@ -185,7 +198,9 @@ export const AppsRoutes: Routes = [
       {
         path: 'employee',
         component: AppEmployeeComponent,
+        canActivate: [HasRoleGuard],
         data: {
+          role: ['admin'], // Only admin can access the comptes route
           title: 'Comptes',
           urls: [
             { title: '', url: '/dashboards/dashboard1' },
@@ -198,10 +213,6 @@ export const AppsRoutes: Routes = [
         component: AppInvoiceListComponent,
         data: {
           title: 'Fiches',
-          urls: [
-            { title: '', url: '/dashboards/dashboard1' },
-            { title: 'Fiches' },
-          ],
         },
       },
       {
@@ -239,4 +250,4 @@ export const AppsRoutes: Routes = [
       },
     ],
   },
-];
+]; 

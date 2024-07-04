@@ -13,10 +13,10 @@ export const WidgetsRoutes: Routes = [
         path: 'banners',
         component: AppBannersComponent,
         data: {
-          title: 'Banners',
+          title: 'Trificateur',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Banners' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Tarificateur' },
           ],
         },
       },

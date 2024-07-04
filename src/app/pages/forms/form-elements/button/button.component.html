@@ -1,6 +1,6 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-header>
-    <mat-card-title class="m-b-0">Buttons</mat-card-title>
+    <mat-card-title class="m-b-0">Détails souscription :</mat-card-title>
   </mat-card-header>
   <mat-card-content class="b-t-1">
     <div class="row">
@@ -15,9 +15,6 @@
             >
               <button mat-button>Basic</button>
               <button mat-button color="primary">Primary</button>
-              <button mat-button color="accent">Accent</button>
-              <button mat-button color="warn">Warn</button>
-              <button mat-button disabled>Disabled</button>
               <a mat-button href="https://www.google.com/" target="_blank"
                 >Link</a
               >
@@ -293,99 +290,6 @@
                   Heart
                 </div>
               </button>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-  </mat-card-content>
-</mat-card>
-
-<mat-card class="cardWithShadow theme-card">
-  <mat-card-header>
-    <mat-card-title class="m-b-0">Button Toggle</mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="b-t-1">
-    <div class="row">
-      <div class="col-sm-6">
-        <mat-card class="b-1 shadow-none">
-          <mat-card-header>
-            <mat-card-title>Basic</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="b-t-1">
-            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-              <mat-button-toggle value="bold">Bold</mat-button-toggle>
-              <mat-button-toggle value="italic">Italic</mat-button-toggle>
-              <mat-button-toggle value="underline">Underline</mat-button-toggle>
-            </mat-button-toggle-group>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="col-sm-6">
-        <mat-card class="b-1 shadow-none">
-          <mat-card-header>
-            <mat-card-title>Multiple Select</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="b-t-1">
-            <mat-button-toggle-group
-              name="fontStyle"
-              aria-label="Font Style"
-              multiple
-            >
-              <mat-button-toggle value="flour">Flour</mat-button-toggle>
-              <mat-button-toggle value="eggs">Eggs</mat-button-toggle>
-              <mat-button-toggle value="sugar">Sugar</mat-button-toggle>
-            </mat-button-toggle-group>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="col-sm-6">
-        <mat-card class="b-1 shadow-none">
-          <mat-card-header>
-            <mat-card-title>Reactive Form</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="b-t-1">
-            <mat-button-toggle-group
-              [formControl]="fontStyleControl"
-              aria-label="Font Style"
-            >
-              <mat-button-toggle value="bold">Bold</mat-button-toggle>
-              <mat-button-toggle value="italic">Italic</mat-button-toggle>
-              <mat-button-toggle value="underline">Underline</mat-button-toggle>
-            </mat-button-toggle-group>
-            <p class="mat-subtitle-2 f-w-600 m-t-12">
-              Chosen value is : {{ fontStyleControl.value }}
-            </p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-      <div class="col-sm-6">
-        <mat-card class="b-1 shadow-none">
-          <mat-card-header>
-            <mat-card-title>Exclusive selection</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="b-t-1">
-            <mat-button-toggle-group #group="matButtonToggleGroup">
-              <mat-button-toggle value="left" aria-label="Text align left">
-                <mat-icon>format_align_left</mat-icon>
-              </mat-button-toggle>
-              <mat-button-toggle value="center" aria-label="Text align center">
-                <mat-icon>format_align_center</mat-icon>
-              </mat-button-toggle>
-              <mat-button-toggle value="right" aria-label="Text align right">
-                <mat-icon>format_align_right</mat-icon>
-              </mat-button-toggle>
-              <mat-button-toggle
-                value="justify"
-                disabled
-                aria-label="Text align justify"
-              >
-                <mat-icon>format_align_justify</mat-icon>
-              </mat-button-toggle>
-            </mat-button-toggle-group>
-            <div class="mat-subtitle-2 f-w-600 m-t-12">
-              Selected value: {{ group.value }}
             </div>
           </mat-card-content>
         </mat-card>

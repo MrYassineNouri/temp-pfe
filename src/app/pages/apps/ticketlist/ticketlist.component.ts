@@ -17,14 +17,7 @@ export interface TicketElement {
   role: string;
 }
 
-const tickets: TicketElement[] = [
-  {
-    id: 1,
-    nom: 'Sed ',
-    prenom: 'hbj,',
-    role: 'Commercial',
-  },
-];
+const tickets: TicketElement[] = [];
 
 @Component({
   selector: 'app-ticket-list',
@@ -112,21 +105,16 @@ export class AppTicketlistComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result.event === 'Delete') {
-        console.log("tfuihioj")
         this.deleteRowData(result.data.id);
       }
     })
   }
   // tslint:disable-next-line - Disables all
   addComm() {
-    console.log('yftugyihoj');
-    console.log(this.idgrp);
     this.router.navigate(['/tables/selection-table'], { state: { data: this.idgrp } });
   }
 
   addSupp() {
-    console.log('yftugyihoj');
-    console.log(this.idgrp);
     this.router.navigate(['/tables/multi-header-footer-table'], { state: { data: this.idgrp } });
   }
 
@@ -149,13 +137,13 @@ export class AppTicketlistComponent implements OnInit {
   deleteRowData(id:any): boolean | any {
     console.log(id)
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Voulez vous supprimer ?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      cancelButtonText: "Annuler",
+      confirmButtonText: "Oui!"
     }).then((result) => {
       if (result.isConfirmed) {
         this.http.post(`http://localhost:5555/api/v1/groupes/del`, id, { responseType: 'text' })
@@ -163,8 +151,8 @@ export class AppTicketlistComponent implements OnInit {
                   (resultData: any) => {
                       console.log(resultData);
                       Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
+                        title: "Supprimer!",
+                        text: "L'employée retiré du groupe.",
                         icon: "success"
                       });
                       this.ngOnInit();

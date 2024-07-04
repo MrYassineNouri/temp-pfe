@@ -90,10 +90,10 @@ export const TablesRoutes: Routes = [
         path: 'mix-table',
         component: AppMixTableComponent,
         data: {
-          title: 'Mix Table',
+          title: 'Souscription',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Mix Table' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Souscription' },
           ],
         },
       },
@@ -167,10 +167,10 @@ export const TablesRoutes: Routes = [
         path: 'sticky-header-footer-table',
         component: AppStickyHeaderFooterTableComponent,
         data: {
-          title: 'Sticky Header Footer Table',
+          title: 'List Contrats',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Sticky Header Footer Table' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'List Contrats' },
           ],
         },
       },

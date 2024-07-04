@@ -90,42 +90,16 @@ export class AppEmployeeComponent implements OnInit{
       data: obj,
     });
     dialogRef.afterClosed().subscribe((result:any) => {
-      if (result.event === 'Add') {
+      if (result.event === 'Ajouter') {
         this.addRowData(result.data);
-      } else if (result.event === 'Update') {
+      } else if (result.event === 'Modifier') {
         this.updateRowData(result.data);
       }
     });
   }
 
   Act(row_obj:Employee){
-    let idrole: number | undefined;
-      const nomrole = row_obj.role;
-      if (nomrole === "admin") {
-          idrole = 1;
-      } else if (nomrole === "superviseur") {
-          idrole = 2;
-      } else if (nomrole === "commercial") {
-          idrole = 3;
-      }
-  
-      if (idrole !== undefined) {
-          const roleObj = {
-              id: idrole,
-              nom: nomrole
-          };
-          // Créez un nouvel objet pour stocker les données modifiées
-          const rowDataToSend: any = {
-              id: row_obj.id,
-              nom: row_obj.nom,
-              prenom: row_obj.prenom,
-              email: row_obj.email,
-              password: row_obj.password,
-              tel: row_obj.tel,
-              role: roleObj, // Utilisez l'objet de rôle modifié
-              login: row_obj.login
-          };
-    this.http.post('http://localhost:5555/api/v1/users/active',rowDataToSend ,{ responseType: 'text' })
+    this.http.post('http://localhost:5555/api/v1/users/active',row_obj.id ,{ responseType: 'text' })
               .subscribe(
                   (resultData: any) => {
                       console.log(resultData);
@@ -145,24 +119,20 @@ export class AppEmployeeComponent implements OnInit{
                         title: "Une erreur est survenue. Veuillez réessayer plus tard.",
                         showConfirmButton: true,
                         timer: 2000
-                    });
-                  }
-              );
-            } else {
-              console.error('Erreur lors de l\'attribution de la valeur à idrole: le rôle n\'est pas valide.');
-              // Gérez le cas où idrole n'a pas de valeur
-          }
+                    });    }
+                  );
+
   }
 
   // tslint:disable-next-line - Disables all
   addRowData(row_obj: Employee): void {
     let idrole: number | undefined;
     const nomrole = row_obj.role;
-    if (nomrole === "admin") {
+    if (nomrole === "Admin") {
         idrole = 1;
-    } else if (nomrole === "superviseur") {
+    } else if (nomrole === "Superviseur") {
         idrole = 2;
-    } else if (nomrole === "commercial") {
+    } else if (nomrole === "Commercial") {
         idrole = 3;
     }
 
@@ -225,11 +195,12 @@ export class AppEmployeeComponent implements OnInit{
   updateRowData(row_obj: Employee): void {
     let idrole: number | undefined;
     const nomrole = row_obj.role;
-    if (nomrole === "admin") {
+    console.log("dyfugyhj")
+    if (nomrole === "Admin") {
         idrole = 1;
-    } else if (nomrole === "superviseur") {
+    } else if (nomrole === "Superviseur") {
         idrole = 2;
-    } else if (nomrole === "commercial") {
+    } else if (nomrole === "Commercial") {
         idrole = 3;
     }
 
@@ -240,7 +211,7 @@ export class AppEmployeeComponent implements OnInit{
         };
         // Créez un nouvel objet pour stocker les données modifiées
         const rowDataToSend: any = {
-            //id: row_obj.id,
+            id: row_obj.id,
             nom: row_obj.nom,
             prenom: row_obj.prenom,
             email: row_obj.email,

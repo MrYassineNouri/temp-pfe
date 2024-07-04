@@ -1,4 +1,4 @@
-<mat-card class="cardWithShadow">
+<mat-card class="cardWithShadow" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; transition: transform 0.2s;">
   <mat-card-content>
     <div class="row justify-content-between">
       <div class="col-sm-4">
@@ -7,7 +7,8 @@
             matInput
             class="p-b-0"
             placeholder="Rechercher..."
-            (keyup)="applyFilter($event)"
+            (keyup)="applyFilter($any($event.target).value)"
+            style="padding: 4px 0;"
           />
           <mat-icon matSuffix>
             <i-tabler name="search" class="icon-20"></i-tabler>
@@ -15,7 +16,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-8 text-end d-flex align-items-center justify-content-end">
-        <button mat-flat-button (click)="openDialog('Ajouter', {})" color="primary">
+        <button mat-flat-button (click)="openDialog('Ajouter', {})" color="primary" style="border-radius: 20px;">
           Ajouter groupe
         </button>
       </div>
@@ -24,22 +25,22 @@
 </mat-card>
 
 <div class="row">
-  <div class="col-sm-6 col-lg-4" *ngFor="let groupList of contacts">
-    <mat-card class="cardWithShadow position-relative">
-      <button mat-icon-button class="edit-button" position='absolute' (click)="openDialog('Modifier', groupList)">
+  <div class="col-sm-6 col-lg-4" *ngFor="let groupList of groupList.filteredData">
+    <mat-card class="cardWithShadow position-relative" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; transition: transform 0.2s;">
+      <button mat-icon-button class="edit-button" (click)="openDialog('Modifier', groupList)" style="position: absolute; top: 8px; right: 8px; background-color: white; border-radius: 50%;">
         <mat-icon>edit</mat-icon>
       </button>
-      <mat-card-content class="text-center p-24">
-        <img src="assets/images/profile/user.jpg" class="rounded-circle border p-5" width="80" />
-        <h4 mat-card-title class="card-title m-t-16 m-b-0">
+      <mat-card-content class="text-center p-24" style="padding: 24px; text-align: center;">
+        <img src="assets/images/profile/user.jpg" class="rounded-circle border p-5" width="80" style="border-radius: 50%; padding: 5px; border: 1px solid #ccc;" />
+        <h4 mat-card-title class="card-title m-t-16 m-b-0" style="margin-top: 16px; margin-bottom: 0; font-weight: 600;">
           {{ groupList.nom }}
         </h4>
         <span class="f-s-12">{{ groupList.id }}</span>
-        <div class="m-t-20">
-          <button mat-flat-button (click)="navigateToo(groupList.id)" class="m-r-8" color="primary">liste des employés</button>
+        <div class="m-t-20" style="margin-top: 20px;">
+          <button mat-flat-button (click)="navigateToo(groupList.id)" class="m-r-8" color="primary" style="margin-right: 8px; border-radius: 20px;">Liste des employés</button>
         </div>
       </mat-card-content>
-      <mat-divider></mat-divider>
+      <mat-divider style="margin: 16px 0;"></mat-divider>
     </mat-card>
   </div>
 </div>

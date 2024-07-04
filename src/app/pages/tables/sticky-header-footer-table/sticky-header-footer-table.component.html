@@ -1,91 +1,60 @@
-
 <mat-card class="cardWithShadow">
   <mat-card-header>
-    <mat-card-title><b>Table de comparaison</b></mat-card-title>
-    
+    <mat-card-title><b>Contrat Validé</b></mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="table-responsive example-container m-t-30">
       <table mat-table [dataSource]="dataSource" matSort class="w-100 table-bordered">
-        <!-- Position Column -->
-        <ng-container matColumnDef="société">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14" sticky:true>
-            Société
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14" sticky>
+            ID
           </th>
           <td mat-cell *matCellDef="let element">
             <div class="d-flex align-items-center">
-              <img [src]="element.im" alt="Logo de la société" width="40" class="rounded-circle" />
               <div class="m-l-16">
                 <h6 class="mat-subtitle-1 f-s-14 f-w-600">
-                  {{ element.societe }}
+                  {{ element.id }}
                 </h6>
               </div>
             </div>
           </td>
         </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="prod">
+        <!-- Client Column -->
+        <ng-container matColumnDef="client">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
-            Nom de produit
+            Client
           </th>
           <td mat-cell *matCellDef="let element" class="mat-body-1">
-            {{ element.prod }}
+            {{ element.numeroClient }}
           </td>
         </ng-container>
 
-      <!--  Weight Column 
-        <ng-container matColumnDef="priority">
+        <!-- Product Column -->
+        <ng-container matColumnDef="produit">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
-            Priority
-          </th>
-          <td mat-cell *matCellDef="let element">
-            @if(element.priority == 'low') {
-            <span class="bg-light-accent text-accent rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element.priority | titlecase }}
-            </span>
-            }
-
-            @if(element.priority == 'medium') {
-            <span class="bg-light-primary text-primary rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element.priority | titlecase }}
-            </span>
-            }
-
-            @if(element.priority == 'high') {
-            <span class="bg-light-warning text-warning rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element.priority | titlecase }}
-            </span>
-            }
-
-            @if(element.priority == 'critical') {
-            <span class="bg-light-error text-error rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element.priority | titlecase }}
-            </span>
-            }
-
-            @if(element.priority == 'moderate') {
-            <span class="bg-light-success text-success rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element.priority | titlecase }}
-            </span>
-            }
-          </td>
-        </ng-container>
-      -->
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="prix">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
-            Prix
+            Produit
           </th>
           <td mat-cell *matCellDef="let element" class="mat-body-1">
-            ${{ element.prix }}
+            {{ element.pid }}
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Date
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ element.dateA }}
+          </td>
+        </ng-container>
+
+        <!-- Header and Row Definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
   </mat-card-content>
 </mat-card>
-<div><button mat-flat-button color="primary" (click)="openDialog()" class="w-80" style="margin-left: 85%;">Envoyer devis</button></div>

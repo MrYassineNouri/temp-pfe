@@ -3,81 +3,17 @@ import { MaterialModule } from '../../../material.module';
 import { CommonModule } from '@angular/common';
 import { AppDialogContentComponent } from '../../ui-components/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DataSource } from '@angular/cdk/collections';
+import { HttpClient } from '@angular/common/http';
+import { MatTableDataSource } from '@angular/material/table';
 
-/*export interface Transaction {
-  item: string;
-  img: string;
-  cost: number;
+
+export interface UserData{
+  id:number,
+  numeroClient:number,
+  pid:string,
+  dateA:Date,
 }
-
-export interface PeriodicElement {
-  id: number;
-  imagePath: string;
-  uname: string;
-  position: string;
-  productName: string;
-  budget: number;
-  priority: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    id: 1,
-    imagePath: 'assets/images/profile/user-1.jpg',
-    uname: 'Sunil Joshi',
-    position: 'Web Designer',
-    productName: 'Elite Admin',
-    budget: 3.9,
-    priority: 'low',
-  },
-  {
-    id: 2,
-    imagePath: 'assets/images/profile/user-2.jpg',
-    uname: 'Andrew McDownland',
-    position: 'Project Manager',
-    productName: 'Real Homes Theme',
-    budget: 24.5,
-    priority: 'medium',
-  },
-  {
-    id: 3,
-    imagePath: 'assets/images/profile/user-3.jpg',
-    uname: 'Christopher Jamil',
-    position: 'Project Manager',
-    productName: 'MedicalPro Theme',
-    budget: 12.8,
-    priority: 'high',
-  },
-  {
-    id: 4,
-    imagePath: 'assets/images/profile/user-4.jpg',
-    uname: 'Nirav Joshi',
-    position: 'Frontend Engineer',
-    productName: 'Hosting Press HTML',
-    budget: 2.4,
-    priority: 'critical',
-  },
-  {
-    id: 1,
-    imagePath: 'assets/images/profile/user-1.jpg',
-    uname: 'Sunil Joshi',
-    position: 'Web Designer',
-    productName: 'Elite Admin',
-    budget: 3.9,
-    priority: 'low',
-  },
-  {
-    id: 2,
-    imagePath: 'assets/images/profile/user-2.jpg',
-    uname: 'Andrew McDownland',
-    position: 'Project Manager',
-    productName: 'Real Homes Theme',
-    budget: 24.5,
-    priority: 'medium',
-  },
-];*/
-
-
 
 
 @Component({
@@ -89,50 +25,25 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AppStickyHeaderFooterTableComponent implements OnInit {
   // Fixed header
-  displayedColumns = ['société', 'prod', 'prix'];
-  dataSource: any[] = [];
-  selectedRows: any;
+  displayedColumns = ['id', 'client', 'produit','date'];
+  dataSource: MatTableDataSource<UserData>;
 
-
- /* displayedColumns = ['item', 'cost'];
-
- openHeaderDialog() {
-    const dialogRef = this.dialog.open(AppDialogContentComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  transactions: Transaction[] = [
-    { img: '/assets/images/products/s1.jpg', item: 'Beach ball', cost: 4 },
-    { img: '/assets/images/products/s2.jpg', item: 'Towel', cost: 5 },
-    { img: '/assets/images/products/s3.jpg', item: 'Frisbee', cost: 2 },
-    { img: '/assets/images/products/s4.jpg', item: 'Sunscreen', cost: 4 },
-    { img: '/assets/images/products/s5.jpg', item: 'Cooler', cost: 25 },
-    { img: '/assets/images/products/s6.jpg', item: 'Swim suit', cost: 15 },
-  ]; 
-
-  /** Gets the total cost of all transactions.
-  getTotalCost(): any {
-    return this.transactions
-      .map((t) => t.cost)
-      .reduce((acc, value) => acc + value, 0);
-  } */
-  
-  
-  constructor(private dialog: MatDialog) {}
-  openDialog() {
-      const dialogRef = this.dialog.open(AppDialogContentComponent);
-
-      dialogRef.afterClosed().subscribe((result: any) => {
-        console.log(`Dialog result: ${result}`);
-      });
-    }
-  
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.selectedRows = history.state.selectedRows || [];
-    this.dataSource = this.selectedRows;
+    this.dataSource=new MatTableDataSource<UserData>([]);
+    this.getContrat();
   }
-  
+  getContrat() {
+    this.http.get("http://localhost:5555/api/v1/contrat/afficher")
+    .subscribe(
+      (resultData: any) => {
+        console.log(resultData);
+        this.dataSource = new MatTableDataSource<UserData>(resultData);
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
 }

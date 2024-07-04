@@ -36,10 +36,10 @@ export const ThemePagesRoutes: Routes = [
         path: 'pricing',
         component: AppPricingComponent,
         data: {
-          title: 'Tarificateur',
+          title: 'Comparateur',
           urls: [
             { title: '', url: '/dashboards/dashboard1' },
-            { title: 'Tarificateur' },
+            { title: 'Comparateur' },
           ],
         },
       },

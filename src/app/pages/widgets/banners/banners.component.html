@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,7 +148,7 @@
                   <button
                     mat-flat-button
                     style="background-color:rgb(126, 126, 255); margin-left: 50px;"
-                    (click)="Souscrire()">Souscrire</button>
+                    (click)="Souscrire(element.prod,element.societe)">Souscrire</button>
                 </td>
               </ng-container>
 
@@ -193,7 +194,7 @@
           <h3>Services :</h3>
           
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Soins médicales :</mat-label>
+              <mat-label>Hospitalisation :</mat-label>
               <mat-select [(value)]="verticalPosition1">
                 <mat-option value="">100%</mat-option>
                 <mat-option value="">75%</mat-option>
@@ -203,7 +204,7 @@
             </mat-form-field>
             <br><br>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Hospitalisation :</mat-label>
+              <mat-label>Soins médicales :</mat-label>
               <mat-select [(value)]="verticalPosition2">
                 <mat-option value="">100%</mat-option>
                 <mat-option value="">75%</mat-option>

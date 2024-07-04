@@ -24,6 +24,13 @@ export interface yearlyChart {
   legend: ApexLegend;
   responsive: ApexResponsive;
 }
+interface stats {
+  id: number;
+  color: string;
+  title: string;
+  subtitle: string;
+  percent: string;
+}
 
 @Component({
   selector: 'app-yearly-breakup',
@@ -83,4 +90,27 @@ export class AppYearlyBreakupComponent {
       },
     };
   }
+  stats: stats[] = [
+    {
+      id: 1,
+      color: 'primary',
+      title: 'Meilleures ventes',
+      subtitle: 'Neoliane Plenitude',
+      percent: '68ventes',
+    },
+    {
+      id: 2,
+      color: 'success',
+      title: 'Best Seller',
+      subtitle: 'Apivia',
+      percent: '45%',
+    },
+    {
+      id: 3,
+      color: 'error',
+      title: 'Clients',
+      subtitle: 'Nouveaux',
+      percent: '11',
+    },
+  ];
 }

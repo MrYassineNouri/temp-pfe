@@ -119,16 +119,5 @@ export class AppproduitsComponent implements OnInit{
     console.log("xfghjkl");
     this.router.navigate(['/ui-components/lists'], { state: { data: c } });
   }
-   /*ddlChange(ob: any): void {
-    const filterValue = ob.value;
-    if (filterValue === 'All') {
-      this.produitList = this.produitService.getproduit();
-    } else {
-      this.produitList = this.produitService
-        .getproduit()
-        // tslint:disable-next-line: no-shadowed-variable
-        .filter((produit) => produit.produitFramework === filterValue);
-    }
-    // this.todos.filter(produit => produit.produitType==filterValue);
-  }*/
+
 }

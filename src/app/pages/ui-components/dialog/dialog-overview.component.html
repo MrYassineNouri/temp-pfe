@@ -1,120 +1,291 @@
-<!-- <h5 mat-dialog-title class="mat-subtitle-1">Delete file</h5>
-<div mat-dialog-content class="mat-subtitle-2 lh-16">
-  azertyuiiopmlkjhgfdsqwxcvbn
-</div>
-<div mat-dialog-actions class="p-24 p-t-0">
-  <button mat-stroked-button color="warn" mat-dialog-close>No</button>
-  <button mat-flat-button color="primary" mat-dialog-close cdkFocusInitial>
-    Ok
-  </button>
-</div>-->
- 
-    <div class="row" style="margin-top: 45px;margin-left: 45px;margin-right: 45px;">
+<h2 class="f-w-500 m-b-24" mat-dialog-title><strong>Modifier</strong></h2>
+<h4 class="mat-headline-6 m-y-24">Identité Bancaire</h4>
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-content>
+    <div class="row">
       <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>CourseType</mat-label>
-          <input
-            type="text"
-            matInput
-            required
-            id="name"
-            name="name"
-            
-            placeholder="CourseType"
-          />
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>CourseFramework</mat-label>
-          <input
-            type="text"
-            matInput
-            required
-            id="position"
-            name="position"
-            
-            placeholder="CourseFramework"
-          />
-        </mat-form-field>
+        <div class="row">
+          <div class="col-sm-3 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">Titulaire Compte Prev</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">IBAN Prev</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">BIC Prev</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="" />
+            </mat-form-field>
+          </div>
+        </div>
       </div>
       <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Time</mat-label>
-          <input
-            type="text"
-            matInput
-            required
-            id="email"
-            name="email"
-            
-            placeholder="Time"
-          />
-        </mat-form-field>
+        <div class="row">
+          <div class="col-sm-3 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">Titulaire Compte Remb</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">IBAN Remb</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">BIC Remb</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>         
+    </div>
+    <div class="row">
+      <div class="col-sm-3 d-flex align-items-center">
+        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">Nom Banque Prev</mat-label>
       </div>
-      <div class="col-lg-6">
+      <div class="col-sm-9">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>CourseName</mat-label>
-          <input
-            type="text"
-            matInput
-            required
-            id="mobile"
-            name="mobile"
-            
-            placeholder="CourseName"
-          />
-        </mat-form-field>
-      </div>
-      <div class="col-lg-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Update</mat-label>
-          <input
-            type="text"
-            placeholder="Update"
-            matInput
-            required
-            id="doj"
-            name="doj"
-            
-          />
-        </mat-form-field>
-      </div>
-      
-      <div class="col-lg-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Projetcts</mat-label>
-          <input
-            type="text"
-            matInput
-            required
-            id="projects"
-            name="projects"
-           
-            placeholder="Projects"
-          />
+          <input matInput placeholder="" />
         </mat-form-field>
       </div>
     </div>
- 
-      <button mat-stroked-button color="warn" mat-dialog-close style="margin-right:40px;margin-left:40px; margin-bottom:3px;">Annuler</button>
-      <button mat-flat-button color="primary" mat-dialog-close cdkFocusInitial style="margin-right:40px;margin-left:40px; margin-bottom: 20px;margin-top: 3px;">Ajouter</button>
-  
-    <!-- <button
-      mat-flat-button
+    <div class="row">
+      <div class="col-sm-3 d-flex align-items-center">
+        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-24">Nom Banque Remb</mat-label>
+      </div>
+      <div class="col-sm-9">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="" />
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<h4 class="mat-headline-6 m-y-24">INFO De Paiement</h4>
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Type De Contrat</mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select value="0">
+                <mat-option value="0"></mat-option>
+                <mat-option value="Ajout/retrait ayant droit">Ajout/retrait ayant droit</mat-option>
+                <mat-option value="Modification garenties">Modification garenties</mat-option>
+                <mat-option value="3">C</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Frais de dossier</mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select value="0">
+                <mat-option value="0"></mat-option>
+                <mat-option value="1">Courtier</mat-option>
+                <mat-option value="2">Compagnie</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Fonctionnement</mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select value="0">
+                <mat-option value="0"></mat-option>
+                <mat-option value="1">Mensuel</mat-option>
+                <mat-option value="2">Trimestriel</mat-option>
+                <mat-option value="3">C</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Mois offert</mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select value="0">
+                <mat-option value="0"></mat-option>
+                <mat-option value="1">Courtier</mat-option>
+                <mat-option value="2">Compagnie</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Date de prélèvement</mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="datepicker" />
+              <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Mode de payement</mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select value="0">
+                <mat-option value="0"></mat-option>
+                <mat-option value="1">par virement</mat-option>
+                <mat-option value="2">par chèque</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<h4 class="mat-headline-6 m-y-24">INFO Résiliation</h4>
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Compagnie</mat-label>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select placeholder="Compagnie" [(ngModel)]="local_data.compagnie" name="compagnie">
+                <mat-option value="Apivia">Apivia</mat-option>
+                <mat-option value="Néoliane">Néoliane</mat-option>
+                <mat-option value="Zénioo">Zénioo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Numéro Client</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input
+            type="text"
+            matInput
+            required
+            id="numeroClient"
+            name="numeroClient"
+            [(ngModel)]="local_data.numeroClient"
+            placeholder="Numéro Client"
+          />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-sm-12 d-flex align-items-center">
+            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Produit</mat-label>
+          </div>
+          <div class="col-sm-9">
+            <mat-form-field appearance="outline" class="w-100">
+              <input
+            type="text"
+            matInput
+            required
+            id="pid"
+            name="pid"
+            [(ngModel)]="local_data.pid"
+            placeholder="Produit"
+          />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
       
+    </div>
+    <div class="row">
+      <div class="col-sm-12 d-flex align-items-center">
+        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Date d'échéance</mat-label>
+      </div>
+      <div class="col-sm-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <input
+            matInput
+            [matDatepicker]="datepicker1"
+            required
+            id="dateSous"
+            name="dateSous"
+            [(ngModel)]="local_data.dateSous"
+            placeholder="Date d'échéance"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <button
+      mat-flat-button
+      (click)="doAction()"
       mat-flat-button
       color="primary"
     >
-    Ajouter
+      Modifier
     </button>
     <button
       mat-stroked-button
       color="warn"
       class="m-l-8"
-     
+      (click)="closeDialog()"
     >
-      Annuler
-    </button>-->
-
-
+      Cancel
+    </button>
+    </div>
+  </mat-card-content>
+</mat-card>

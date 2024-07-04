@@ -79,13 +79,13 @@ export const FormsRoutes: Routes = [
     path: '',
     children: [
       {
-        path: 'form-layouts',
+        path: 'form-layouts/:id',
         component: AppFormLayoutsComponent,
         data: {
-          title: 'Form Layouts',
+          title: 'Souscription',
           urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Form Layouts' },
+            { title: '', url: '/dashboards/dashboard1' },
+            { title: 'Souscription' },
           ],
         },
       },

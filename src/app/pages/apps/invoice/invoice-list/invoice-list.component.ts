@@ -62,6 +62,8 @@ export class AppInvoiceListComponent implements  OnInit {
         value.codeP=row_obj.codeP;
         value.tel= row_obj.tel;
         value.DE= row_obj.DE;
+        value.DNE1= row_obj.DNE1;
+        value.DNE2= row_obj.DNE2;
       }
       })
       const rowDataToSend: any = {
@@ -70,15 +72,17 @@ export class AppInvoiceListComponent implements  OnInit {
         prenom: row_obj.prenom,
         DN: row_obj.DN,
         regime:row_obj.regime,
-        nomc: row_obj.nom,
-        prenomc: row_obj.prenom,
-        DNC: row_obj.DN,
-        regimec:row_obj.regime,
+        nomc: row_obj.nomc,
+        prenomc: row_obj.prenomc,
+        DNC: row_obj.DNC,
+        regimec:row_obj.regimec,
         adresse:row_obj.adresse,
         email:row_obj.email,
         codeP:row_obj.codeP,
         tel:row_obj.tel,
         DE:row_obj.DE,
+        DNE1:row_obj.DNE1,
+        DNE2:row_obj.DNE2,
         };
         console.log(rowDataToSend)
 
@@ -88,10 +92,23 @@ export class AppInvoiceListComponent implements  OnInit {
               .subscribe(
                   (resultData: any) => {
                       console.log(resultData);
+                      Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Compte modifiée avec succès.",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                       this.getFiches();
                   },
                   (error) => {
                       console.error('Erreur lors de la modification de la fiche:', error);
+                      Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Une erreur est survenue. Veuillez réessayer plus tard.",
+                        showConfirmButton: false,
+                    });
                   }
                 );
     }
@@ -100,7 +117,8 @@ export class AppInvoiceListComponent implements  OnInit {
   }
   
   naviguer(id:number){
-
+    console.log(id)                                                                                                     
+    this.router.navigate(['/apps/viewInvoice/id'] ,{ state: { data: id } });
   }
 
   navigate(id:number) {
@@ -125,45 +143,45 @@ export class AppInvoiceListComponent implements  OnInit {
       this.invoiceList.filter = filterValue.trim().toLowerCase();
     }
 
-  deleteInvoice(id: number): void {
-    console.log(id);
-    Swal.fire({
-      title: "Voulez-vous supprimer cette fiche?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Oui!,Supprimer.",
-      cancelButtonText:"Annuler"
-    }).then((result) => {
-      if (result.isConfirmed) {
-      this.http.post("http://localhost:5555/api/v1/fiches/del",id).subscribe(
-        response => {
-          this.invoiceList.data = this.invoiceList.data.filter(invoice => invoice.id !== id);
-          console.log("tfasakht")
-          Swal.fire({
-            title: "Supprimer",
-            text: "Votre fiche est supprimée avec succès.",
-            icon: "success"
-          });
-          this.router.navigate(['/apps/fiches']);
-        },
-        error => {
-          console.error('Error deleting invoice:', error); // Handle errors here
-        }
-      );
-    }else if(result.isDenied) {
+    deleteInvoice(id: number): void {
+      console.log(id);
       Swal.fire({
-        position: "center",
+        title: "Voulez-vous supprimer cette fiche?",
         icon: "warning",
-        title: "Suppression annulée",
-        showConfirmButton: false,
-        timer: 1000
-    });
-  }
-});
-  }
-
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui!,Supprimer.",
+        cancelButtonText: "Annuler"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.http.post(`http://localhost:5555/api/v1/fiches/del`, id, { responseType: 'text' }).subscribe(
+            response => {
+              // Mise à jour immédiate de l'interface utilisateur
+              this.invoiceList.data = this.invoiceList.data.filter(invoice => invoice.id !== id);
+              console.log("Fiche supprimée");
+    
+              Swal.fire({
+                title: "Supprimé",
+                text: "Votre fiche est supprimée avec succès.",
+                icon: "success"
+              });
+            },
+            error => {
+              console.error('Error deleting invoice:', error); // Gérer les erreurs ici
+            }
+          );
+        } else if (result.isDismissed) {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Suppression annulée",
+            showConfirmButton: false,
+            timer: 1000
+          });
+        }
+      });
+    }
 
   getFiches() {
     this.http.get("http://localhost:5555/api/v1/fiches/aff")

@@ -100,13 +100,25 @@ export class AppBannersComponent implements OnInit {
     console.log('Selected rows:', this.selectedRows); // Check if selectedRows contains the expected data
   
     if (this.selectedRows.length === 3) {
-      this.router.navigate(['/theme-pages/pricing'], { state: { selectedRows: this.selectedRows } });
+      this.router.navigate(['/theme-pages/pricing'], {
+        state: {
+          selectedRows: this.selectedRows,
+          data: this.data
+        }
+      });  
     } else {
       console.log('Incorrect number of selected rows:', this.selectedRows.length);
     }
   }
-  Souscrire(){
-    this.router.navigate(['/forms/souscription']);
+  Souscrire(prod:any,soc:any){
+    console.log(prod)
+    this.router.navigate(['/forms/souscription'], {
+      state: {
+        data: this.data,
+        produit: prod,
+        societe: soc
+      }
+    });
   }
  
 

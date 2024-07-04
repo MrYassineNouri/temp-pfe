@@ -2,22 +2,6 @@ import { Component, TrackByFunction } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppDialogContentComponent } from '../../ui-components/dialog/dialog.component';
 
-// card 1
-interface rules {
-  title: string;
-  limit: boolean;
-}
-
-interface pricecards {
-  id: number;
-  imgSrc: string;
-  plan: string;
-  btnText: string;
-  free: boolean;
-  planPrice?: Number;
-  popular?: boolean;
-  rules: rules[];
-}
 
 @Component({
   selector: 'app-pricing',
@@ -29,6 +13,7 @@ export class AppPricingComponent {
   selectedRows: any;
 show: any;
 trackByPlan: TrackByFunction<any>;
+element: any;
 
 
  /* displayedColumns = ['item', 'cost'];
@@ -58,9 +43,15 @@ trackByPlan: TrackByFunction<any>;
   
   
   constructor(private dialog: MatDialog) {}
-  openDialog() {
-    console.log("fgvhbjnk")
-      const dialogRef = this.dialog.open(AppDialogContentComponent);
+  openDialog(dataSource:any[]) {
+    const rowDataToSend = this.dataSource;
+    const prods = rowDataToSend.map(element => element.prod);
+    console.log('prods:', prods);
+
+      const dialogRef = this.dialog.open(AppDialogContentComponent, {
+      data: { prods }
+    });
+
       console.log("rdfghnjk")
       dialogRef.afterClosed().subscribe((result: any) => {
         console.log(`Dialog result: ${result}`);

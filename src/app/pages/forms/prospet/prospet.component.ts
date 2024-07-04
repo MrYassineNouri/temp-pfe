@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { MaterialModule } from '../../../material.module';
 import { TablerIconsModule } from 'angular-tabler-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-prospet',
@@ -83,7 +84,13 @@ export class AppProspetComponent {
       this.http.post('http://localhost:5555/api/v1/fiches/create', concatenatedFormData, { responseType: 'text' })
         .subscribe(
           (resultData: any) => {
-            alert('Fiche ajoutée avec succès.');
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Fiche ajoutée avec succès",
+              showConfirmButton: true,
+              timer:5000,
+            });
             this.navigateTo();
 
           },
